@@ -1,5 +1,13 @@
+# Data files
 **/data/
+
+# Pycache and jupyter notebook checkpoints
 *.pyc
 .ipynb_checkpoints/
+
+# Pretrained model checkpoints
 *.pth
 *.pth.tar
+
+# Vim swap files
+*.swo

@@ -10,6 +10,7 @@ cfg = {
     'VGG11': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'VGG13': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'VGG16_quant': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
+    'VGG16_quant_8x8': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 8, 'S8', 512, 'M', 512, 512, 512, 'M'],
     'VGG16': ['F', 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
     'VGG19': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 512, 512, 512, 512, 'M'],
 }
@@ -38,6 +39,11 @@ class VGG_quant(nn.Module):
                            nn.BatchNorm2d(64),
                            nn.ReLU(inplace=True)]
                 in_channels = 64
+            elif isinstance(x, str) and x.startswith('S'): # conv -> ReLU (no BatchNorm)
+                ch = int(x[1:]) # 8 out channels
+                layers += [QuantConv2d(in_channels, ch, kernel_size=3, padding=1),
+                           nn.ReLU(inplace=True)]
+                in_channels = ch
             else:
                 layers += [QuantConv2d(in_channels, x, kernel_size=3, padding=1),
                            nn.BatchNorm2d(x),
@@ -56,5 +62,8 @@ def VGG16_quant(**kwargs):
     model = VGG_quant(vgg_name = 'VGG16_quant', **kwargs)
     return model
 
+def VGG16_quant_8x8(**kwargs):
+    model = VGG_quant(vgg_name = 'VGG16_quant_8x8', **kwargs)
+    return model
 
 

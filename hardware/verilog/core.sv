@@ -1,5 +1,3 @@
-// TODO: Finish SFU writeback
-
 module core #(
     parameter bw      = 4,
     parameter psum_bw = 16,
@@ -24,6 +22,7 @@ module core #(
     logic execute;          // inst[1]
     logic l0_wr;            // inst[2]
     logic l0_rd;            // inst[3]
+    logic sfu_wb;           // inst[4] - Repurposed from unused ififo_rd bit
     logic ofifo_rd;         // inst[6]
 
     logic [10:0] xmem_addr; // inst[17:7]
@@ -40,11 +39,14 @@ module core #(
     logic [col*psum_bw-1:0]  pmem_d;
     logic [col*psum_bw-1:0]  pmem_q;
 
+    logic [col*psum_bw-1:0] ofifo_data;   // psum from ofifo
+
     // Assignments
     assign load      = inst[0];
     assign execute   = inst[1];
     assign l0_wr     = inst[2];
     assign l0_rd     = inst[3];
+    assign sfu_wb    = inst[4];
     assign ofifo_rd  = inst[6];
 
     assign xmem_addr = inst[17:7];
@@ -101,9 +103,12 @@ module core #(
 
         .l0_in          (xmem_q),
         .sfu_in         (pmem_q),
-        .ofifo_out      (pmem_d),
+        .ofifo_out      (ofifo_data),
         .ofifo_valid    (ofifo_valid),
         .sfp_out        (sfp_out)
     );
 
+    // SFU Writeback
+    // 0: write ofifo psum to pmem, 1: sfu writeback to pmem
+    assign pmem_d = sfu_wb ? sfp_out : ofifo_data;
 endmodule

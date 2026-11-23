@@ -1,5 +1,8 @@
 // Created by prof. Mingu Kang @VVIP Lab in UCSD ECE department
 // Please do not spread this code without permission 
+// Note from Willy: I added SFU writeback to core.sv using inst[4] (ififo_rd) as the mux select, so assert ififo_rd = 1 with CEN_pmem = 0 and WEN_pmem = 0 (at an unused A_pmem like 1024 + i) right after acc drops to 0—and before reset = 1—to store sfp_out back into pmem
+`timescale 1ns/1ps
+
 `timescale 1ns/1ps
 
 module core_tb;

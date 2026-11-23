@@ -1,4 +1,4 @@
-./verilog/core.v
+./verilog/core.sv
 ./verilog/corelet.sv
 ./verilog/l0.v
 ./verilog/ofifo.v

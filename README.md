@@ -62,6 +62,9 @@ The verification flow connects the trained model to the RTL simulation:
 
 The target is zero mismatches between RTL results and the exported expected outputs.
 
+### Extra
+For extra verification the above flow was is also implemented with cocotb (see the verification subdir). Among other benefits, the use of cocotb allows for easier transfer of data between the software and hardware side, namely that the captured inputs can be directly saved as python (numpy) objects and then loaded in the testbench, as opposed to reading written files in verilog or systemverilog, which can be tedious.
+
 ## FPGA Implementation
 
 | Setting | Target |

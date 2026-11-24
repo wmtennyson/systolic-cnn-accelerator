@@ -8,3 +8,6 @@
 
 # Vim swap files
 *.swo
+
+# Cocotb build artifacts
+verification/sim_build

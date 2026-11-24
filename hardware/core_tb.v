@@ -36,7 +36,7 @@ reg WEN_pmem_q = 1;
 reg [10:0] A_pmem_q = 0;
 reg ofifo_rd_q = 0;
 reg ififo_wr_q = 0;
-reg ififo_rd_q = 0;
+reg sfu_wb_q = 0;     // UPDATED FROM ififo_rd_q
 reg l0_rd_q = 0;
 reg l0_wr_q = 0;
 reg execute_q = 0;
@@ -51,7 +51,7 @@ reg [psum_bw*col-1:0] answer;
 
 reg ofifo_rd;
 reg ififo_wr;
-reg ififo_rd;
+reg sfu_wb;     // UPDATED FROM ififo_rd
 reg l0_rd;
 reg l0_wr;
 reg execute;
@@ -103,7 +103,7 @@ initial begin
   A_xmem   = 0;
   ofifo_rd = 0;
   ififo_wr = 0;
-  ififo_rd = 0;
+  sfu_wb   = 0;  // UPDATED FROM ififo_rd
   l0_rd    = 0;
   l0_wr    = 0;
   execute  = 0;
@@ -249,50 +249,44 @@ initial begin
 
 
 
-    /////// Execution ///////
-    // Move input from L0 to IFIFO
-    for (t=0; t<len_onij; t=t+1) begin
-      #0.5 clk = 1'b0; l0_rd = 1; ififo_wr = 1;
-      #0.5 clk = 1'b1;
-    end
-
-    #0.5 clk = 1'b0; l0_rd = 0; ififo_wr = 0;
-    #0.5 clk = 1'b1;
-
-    // Execute one pixel per exec cycle
-    for (t=0; t<len_onij; t=t+1) begin
-      #0.5 clk = 1'b0; ififo_rd = 1; execute = 1;
-      #0.5 clk = 1'b1;
-    end
-
-    #0.5 clk = 1'b0; ififo_rd = 0; execute = 0;
-    #0.5 clk = 1'b1;
-
-    // Keep executing pipeline even after fifo empty
-    for (t=0; t<row+col+4; t=t+1) begin
-      #0.5 clk = 1'b0;
-      #0.5 clk = 1'b1;
-    end
-
-    /////////////////////////////////////
+	/////// Execution ///////
+	// Process all 36 activation vectors from the padded 6x6 input.
+	for (t=0; t<len_nij; t=t+1) begin
+	  #0.5 clk = 1'b0; l0_rd = 1; ififo_wr = 1;
+	  #0.5 clk = 1'b1;
+	end
+	#0.5 clk = 1'b0; l0_rd = 0; ififo_wr = 0;
+	#0.5 clk = 1'b1;
+	
+	// Execute one spatial position per cycle.
+	for (t=0; t<len_nij; t=t+1) begin
+	  #0.5 clk = 1'b0; ififo_rd = 1; execute = 1;
+	  #0.5 clk = 1'b1;
+	end
+	#0.5 clk = 1'b0; ififo_rd = 0; execute = 0;
+	#0.5 clk = 1'b1;
+	
+	// Allow pipelined outputs to reach OFIFO.
+	for (t=0; t<row+col+4; t=t+1) begin
+	  #0.5 clk = 1'b0;
+	  #0.5 clk = 1'b1;
+	end
+	/////////////////////////////////////
 
 
 
-    //////// OFIFO READ ////////
-    // Ideally, OFIFO should be read while execution, but we have enough ofifo
-    // depth so we can fetch out after execution.
-    for (t=0; t<len_onij; t=t+1) begin
-      #0.5 clk = 1'b0; ofifo_rd = 1; CEN_pmem = 0; WEN_pmem = 0;
-
-      // Put pixels in pmem next to eachother
-      A_pmem = kij*len_onij+t;
-
-      #0.5 clk = 1'b1;
-    end
-
-    #0.5 clk = 1'b0; ofifo_rd = 0; CEN_pmem = 1; WEN_pmem = 1;
-    #0.5 clk = 1'b1;
-    /////////////////////////////////////
+	//////// OFIFO READ ////////
+	// Ideally, OFIFO should be read while execution, but we have enough ofifo
+	// depth so we can fetch out after execution.
+	// PMEM stores one 128-bit psum per (kij, padded spatial position).
+	for (t=0; t<len_nij; t=t+1) begin
+	  #0.5 clk = 1'b0; ofifo_rd = 1; CEN_pmem = 0; WEN_pmem = 0;
+	  A_pmem = kij*len_nij+t;
+	  #0.5 clk = 1'b1;
+	end
+	#0.5 clk = 1'b0; ofifo_rd = 0; CEN_pmem = 1; WEN_pmem = 1;
+	#0.5 clk = 1'b1;
+	/////////////////////////////////////
 
 
   end  // end of kij loop
@@ -302,61 +296,64 @@ initial begin
 
 
   ////////// Accumulation /////////
-  out_file = $fopen("psum.txt", "r");  
-
-  // Following three lines are to remove the first three comment lines of the file
-  out_scan_file = $fscanf(out_file,"%s", answer); 
-  out_scan_file = $fscanf(out_file,"%s", answer); 
-  out_scan_file = $fscanf(out_file,"%s", answer); 
-
+  out_file = $fopen("psum.txt", "r");
   error = 0;
 
+  $display("############ Verification Start during accumulation #############");
+  for (i=0; i<len_onij; i=i+1) begin
+    oy = i / 4;
+    ox = i % 4;
 
-
-  $display("############ Verification Start during accumulation #############"); 
-
-  for (i=0; i<len_onij+1; i=i+1) begin 
-
-    // Clear acc between output positions
+    // Clear the SFU accumulator between output positions.
     #0.5 clk = 1'b0; reset = 1;
-    #0.5 clk = 1'b1;  
-    #0.5 clk = 1'b0; reset = 0; 
-    #0.5 clk = 1'b1;  
+    #0.5 clk = 1'b1;
+    #0.5 clk = 1'b0; reset = 0;
+    #0.5 clk = 1'b1;
 
-    // Accumulate all kernel positions for single pixel
-    for (j=0; j<len_kij+1; j=j+1) begin 
+    // Accumulate the 9 kernel-position psums for this output pixel.
+    for (j=0; j<len_kij+1; j=j+1) begin
+	  #0.5 clk = 1'b0;
+	  if (j<len_kij) begin
+	    ky = j / 3;
+	    kx = j % 3;
 
-      #0.5 clk = 1'b0;   
-
-      // Acc psums for each kernel position
-      if (j<len_kij) begin 
-        CEN_pmem = 0; WEN_pmem = 1;
-        A_pmem = j*len_onij+i;
-      end
-
-      // Disable pmem but compute final acc
-      else begin 
-        CEN_pmem = 1; WEN_pmem = 1; 
-      end
-
-      if (j>0)  acc = 1;  
-
-      #0.5 clk = 1'b1;   
+	    CEN_pmem = 0; WEN_pmem = 1;
+	    A_pmem = j*len_nij + (oy+ky)*6 + (ox+kx);
+	  end else begin
+	    CEN_pmem = 1; WEN_pmem = 1;
+	  end
+	  if (j>0) acc = 1;
+	  #0.5 clk = 1'b1;
     end
 
     #0.5 clk = 1'b0; acc = 0;
-    #0.5 clk = 1'b1; 
+    #0.5 clk = 1'b1;
 
-    // Compare SFU output with psum.txt
-    out_scan_file = $fscanf(out_file,"%128b", answer); // reading from out file to answer
-    if (sfp_out == answer)
-      $display("%2d-th output featuremap Data matched! :D", i); 
+    // Verify SFU output.
+    out_scan_file = $fscanf(out_file,"%128b", answer);
+
+    if (sfp_out === answer)
+	  $display("%2d-th output featuremap Data matched! :D", i);
     else begin
-      $display("%2d-th output featuremap Data ERROR!!", i); 
-      $display("sfpout: %128b", sfp_out);
-      $display("answer: %128b", answer);
-      error = 1;
+	  $display("%2d-th output featuremap Data ERROR!!", i);
+	  $display("sfpout: %128b", sfp_out);
+	  $display("answer: %128b", answer);
+	  error = error + 1;
     end
+
+    // Write SFU output back to PMEM.
+    #0.5 clk = 1'b0;
+    sfu_wb = 1;
+    CEN_pmem = 0;
+    WEN_pmem = 0;
+    A_pmem = 1024+i;
+    #0.5 clk = 1'b1;
+
+    #0.5 clk = 1'b0;
+    sfu_wb = 0;
+    CEN_pmem = 1;
+    WEN_pmem = 1;
+    #0.5 clk = 1'b1;
   end
 
   if (error == 0) begin
@@ -389,7 +386,7 @@ always @ (posedge clk) begin
    ofifo_rd_q <= ofifo_rd;
    acc_q      <= acc;
    ififo_wr_q <= ififo_wr;
-   ififo_rd_q <= ififo_rd;
+   sfu_wb_q   <= sfu_wb;
    l0_rd_q    <= l0_rd;
    l0_wr_q    <= l0_wr ;
    execute_q  <= execute;

@@ -1,7 +1,5 @@
-import logging
 from pathlib import Path
 
-import cocotb
 from cocotb.triggers import RisingEdge
 from cocotb.types import LogicArray
 
@@ -23,8 +21,8 @@ col = 8
 
 
 sofware_dir = Path(__file__).resolve().parent.parent / 'software'
-w_int = np.uint8(np.load(sofware_dir / 'w_int.npy')) % (2**bw)
-x_int = np.int8(np.load(sofware_dir / 'x_int.npy'))
+w_int = np.uint8(np.int8(np.load(sofware_dir / 'w_int.npy'))) % (2**bw)
+x_int = np.uint8(np.load(sofware_dir / 'x_int.npy'))
 psum_int = np.load(sofware_dir / 'psum_int.npy')
 
 
@@ -74,8 +72,8 @@ async def load_wint_into_xmem(dut):
   # Does not check that xmem writes happen correctly
   flat_weights = np.reshape(w_int, (row, col, -1))
   xmem_weight = np.rollaxis(flat_weights, -1)
-  # Pytorch puts input dim on outer dimension, we want inner to load rows
-  xmem_weight = np.matrix_transpose(xmem_weight)
+  # # Pytorch puts input dim on outer dimension, we want inner to load rows
+  # xmem_weight = np.matrix_transpose(xmem_weight)
   xmem_weight = np.reshape(xmem_weight, (-1, row))
   assert xmem_weight.shape == (9*col, row)
   
@@ -116,15 +114,15 @@ async def load_l0_weights_into_array(dut):
     await RisingEdge(dut.clk)
     
 def check_pe_weights(dut, kij):
+  ki = kij // 3
+  kj = kij %  3
   mac_array = dut.corelet_inst.mac_array_inst
-  w_int_flat = np.reshape(w_int, (w_int.shape[0], w_int.shape[1], -1))
-  mapped_weights = w_int_flat[:,:,kij] # row x col x kij
-  logger.debug(f"{mapped_weights = }")
-  for c in range(col):
-    for r in range(row):
-      mac_tile = mac_array.row_num[r+1].mac_row_instance.col_num[c+1].mac_tile_instance
+  for r in range(row):
+    mac_row = mac_array.row_num[r+1].mac_row_instance
+    for c in range(col):
+      mac_tile = mac_row.col_num[c+1].mac_tile_instance
       loaded_weight = mac_tile.b_q.value
-      desired_weight = LogicArray(int(mapped_weights[r,c]), bw)
+      desired_weight = LogicArray(int(w_int[c,r,ki,kj]), bw)
       assert loaded_weight == desired_weight, f"mismatch at row {r}, col {c}"
 
 async def load_xint_into_l0(dut):

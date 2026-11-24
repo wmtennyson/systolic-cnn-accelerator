@@ -11,6 +11,6 @@ COCOTB_TEST_MODULES = testbench
 
 COCOTB_HDL_TIMEPRECISION = 1ns
 
-# WAVES = 1
+WAVES = 1
 
 include $(shell cocotb-config --makefiles)/Makefile.sim

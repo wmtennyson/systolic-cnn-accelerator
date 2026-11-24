@@ -11,3 +11,4 @@
 
 # Cocotb build artifacts
 verification/sim_build
+verification/*.gtkw

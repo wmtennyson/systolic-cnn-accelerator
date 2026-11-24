@@ -112,7 +112,7 @@ def accumulate() -> LogicArray:
     _acc(1)
   )
   
-def read_sfu_output() -> LogicArray:
+def read_sfu_output(addr) -> LogicArray:
   return _to_inst(
     _sfu_wb(1)
-  )
+  ) | load_pmem(addr)

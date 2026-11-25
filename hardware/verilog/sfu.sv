@@ -20,7 +20,7 @@ module sfu #(
   // signed accumulators for each column
   logic signed [psum_bw-1:0] acc_reg [col];
 
-  always_ff @(posedge clk) begin
+  always @(posedge clk) begin
     if (reset) begin
       for (int i = 0; i < col; i++)
         acc_reg[i] <= '0;
@@ -33,7 +33,7 @@ module sfu #(
 
 
   // ReLU each column and pack into out
-  always_comb begin
+  always @(*) begin
     for (int i = 0; i < col; i++) begin
       if (acc_reg[i] < 0)
         out[i*psum_bw +: psum_bw] = '0;

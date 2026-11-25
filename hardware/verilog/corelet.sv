@@ -47,7 +47,7 @@ module corelet #(
     .clk    (clk),
     .reset  (reset),
     .in_w   (l0_out),
-    .in_n   ('0),
+    .in_n   (128'b0),
     .inst_w ({execute, load}),
     .out_s  (array_out),
     .valid  (array_valid)

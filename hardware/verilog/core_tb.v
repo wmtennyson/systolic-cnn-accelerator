@@ -35,7 +35,6 @@ reg CEN_pmem_q = 1;
 reg WEN_pmem_q = 1;
 reg [10:0] A_pmem_q = 0;
 reg ofifo_rd_q = 0;
-reg ififo_wr_q = 0;
 reg sfu_wb_q = 0;     // UPDATED FROM ififo_rd_q
 reg l0_rd_q = 0;
 reg l0_wr_q = 0;
@@ -50,7 +49,6 @@ reg [psum_bw*col-1:0] answer;
 
 
 reg ofifo_rd;
-reg ififo_wr;
 reg sfu_wb;     // UPDATED FROM ififo_rd
 reg l0_rd;
 reg l0_wr;
@@ -69,6 +67,10 @@ integer captured_data;
 integer t, i, j, k, kij;
 integer error;
 
+// ADDED
+integer ky, kx, oy, ox; // 2D kij and onij mappings
+
+
 assign inst_q[33] = acc_q;
 assign inst_q[32] = CEN_pmem_q;
 assign inst_q[31] = WEN_pmem_q;
@@ -77,8 +79,7 @@ assign inst_q[19]   = CEN_xmem_q;
 assign inst_q[18]   = WEN_xmem_q;
 assign inst_q[17:7] = A_xmem_q;
 assign inst_q[6]   = ofifo_rd_q;
-assign inst_q[5]   = ififo_wr_q;
-assign inst_q[4]   = ififo_rd_q;
+assign inst_q[4]   = sfu_wb_q;
 assign inst_q[3]   = l0_rd_q;
 assign inst_q[2]   = l0_wr_q;
 assign inst_q[1]   = execute_q; 
@@ -102,7 +103,6 @@ initial begin
   WEN_xmem = 1;
   A_xmem   = 0;
   ofifo_rd = 0;
-  ififo_wr = 0;
   sfu_wb   = 0;  // UPDATED FROM ififo_rd
   l0_rd    = 0;
   l0_wr    = 0;
@@ -112,7 +112,8 @@ initial begin
   $dumpfile("core_tb.vcd");
   $dumpvars(0,core_tb);
 
-  x_file = $fopen("input.txt", "r");
+  x_file = $fopen("data/input.txt", "r");
+  if (x_file == 0) $fatal(1, "CANT READ INPUT.TXT");
   // Following three lines are to remove the first three comment lines of the file
   x_scan_file = $fscanf(x_file,"%s", captured_data);
   x_scan_file = $fscanf(x_file,"%s", captured_data);
@@ -147,7 +148,8 @@ initial begin
   /////////////////////////////////////////////////
 
   // One file with all weights
-  w_file = $fopen("weight.txt", "r");
+  w_file = $fopen("data/weight.txt", "r");
+  if (w_file == 0) $fatal(1, "CANT READ WEIGHT.TXT");
   w_scan_file = $fscanf(w_file,"%s", captured_data);
   w_scan_file = $fscanf(w_file,"%s", captured_data);
   w_scan_file = $fscanf(w_file,"%s", captured_data);
@@ -195,7 +197,7 @@ initial begin
     /////// Kernel data writing to L0 ///////
     for (t=0; t<col; t=t+1) begin
       #0.5 clk = 1'b0; CEN_xmem = 0; WEN_xmem = 1; A_xmem = 11'b10000000000 + t; l0_wr = 1;
-      #0.5 clk - 1'b1;
+      #0.5 clk = 1'b1;
     end
     
     #0.5 clk = 1'b0; CEN_xmem = 1; l0_wr = 0;
@@ -207,7 +209,7 @@ initial begin
     /////// Kernel loading to PEs ///////
     for (t=0; t<col; t=t+1) begin
       #0.5 clk = 1'b0; l0_rd = 1; load = 1;
-      #0.5 clk - 1'b1;
+      #0.5 clk = 1'b1;
     end
     /////////////////////////////////////
   
@@ -252,18 +254,18 @@ initial begin
 	/////// Execution ///////
 	// Process all 36 activation vectors from the padded 6x6 input.
 	for (t=0; t<len_nij; t=t+1) begin
-	  #0.5 clk = 1'b0; l0_rd = 1; ififo_wr = 1;
+	  #0.5 clk = 1'b0; l0_rd = 1;
 	  #0.5 clk = 1'b1;
 	end
-	#0.5 clk = 1'b0; l0_rd = 0; ififo_wr = 0;
+	#0.5 clk = 1'b0; l0_rd = 0;
 	#0.5 clk = 1'b1;
 	
 	// Execute one spatial position per cycle.
 	for (t=0; t<len_nij; t=t+1) begin
-	  #0.5 clk = 1'b0; ififo_rd = 1; execute = 1;
+	  #0.5 clk = 1'b0; execute = 1;
 	  #0.5 clk = 1'b1;
 	end
-	#0.5 clk = 1'b0; ififo_rd = 0; execute = 0;
+	#0.5 clk = 1'b0; execute = 0;
 	#0.5 clk = 1'b1;
 	
 	// Allow pipelined outputs to reach OFIFO.
@@ -296,7 +298,8 @@ initial begin
 
 
   ////////// Accumulation /////////
-  out_file = $fopen("psum.txt", "r");
+  out_file = $fopen("data/psum.txt", "r");
+  if (out_file == 0) $fatal(1, "CANT READ PMEM.TXT");
   error = 0;
 
   $display("############ Verification Start during accumulation #############");
@@ -385,7 +388,6 @@ always @ (posedge clk) begin
    A_xmem_q   <= A_xmem;
    ofifo_rd_q <= ofifo_rd;
    acc_q      <= acc;
-   ififo_wr_q <= ififo_wr;
    sfu_wb_q   <= sfu_wb;
    l0_rd_q    <= l0_rd;
    l0_wr_q    <= l0_wr ;

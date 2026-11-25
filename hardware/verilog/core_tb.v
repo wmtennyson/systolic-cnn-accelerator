@@ -230,17 +230,12 @@ initial begin
 
     /////// Activation data writing to L0 ///////
     // For current kij, 
-    for (t=0; t<len_onij; t=t+1) begin
+    for (t=0; t<len_nij; t=t+1) begin
       
-      // Get 2D locations of current pixel
-      oy = t / 4;
-      ox = t % 4;
-
       #0.5 clk = 1'b0; CEN_xmem = 0; WEN_xmem = 1;
+      A_xmem = t;
+      l0_wr = 1;
 
-      // Get current computed pixel row (oy + ky) and column (ox + kx)
-      A_xmem = (oy + ky)*6 + (ox + kx);
-      l0_wr = 0;
 
       #0.5 clk = 1'b1;
     end
@@ -252,20 +247,12 @@ initial begin
 
 
 	/////// Execution ///////
-	// Process all 36 activation vectors from the padded 6x6 input.
-	for (t=0; t<len_nij; t=t+1) begin
-	  #0.5 clk = 1'b0; l0_rd = 1;
-	  #0.5 clk = 1'b1;
-	end
-	#0.5 clk = 1'b0; l0_rd = 0;
-	#0.5 clk = 1'b1;
-	
 	// Execute one spatial position per cycle.
 	for (t=0; t<len_nij; t=t+1) begin
-	  #0.5 clk = 1'b0; execute = 1;
+	  #0.5 clk = 1'b0; execute = 1; l0_rd = 1;
 	  #0.5 clk = 1'b1;
 	end
-	#0.5 clk = 1'b0; execute = 0;
+	#0.5 clk = 1'b0; execute = 0; l0_rd = 0;
 	#0.5 clk = 1'b1;
 	
 	// Allow pipelined outputs to reach OFIFO.
@@ -285,6 +272,8 @@ initial begin
 	  #0.5 clk = 1'b0; ofifo_rd = 1; CEN_pmem = 0; WEN_pmem = 0;
 	  A_pmem = kij*len_nij+t;
 	  #0.5 clk = 1'b1;
+		
+	  #0.1; $display("kij=%0d t=%0d valid=%b OFIFO=%128b PMEM_D=%128b", kij, t, ofifo_valid, core_instance.ofifo_data, core_instance.pmem_d); // DEBUG
 	end
 	#0.5 clk = 1'b0; ofifo_rd = 0; CEN_pmem = 1; WEN_pmem = 1;
 	#0.5 clk = 1'b1;
@@ -300,6 +289,9 @@ initial begin
   ////////// Accumulation /////////
   out_file = $fopen("data/psum.txt", "r");
   if (out_file == 0) $fatal(1, "CANT READ PMEM.TXT");
+  out_scan_file = $fscanf(out_file,"%s", captured_data);
+  out_scan_file = $fscanf(out_file,"%s", captured_data);
+  out_scan_file = $fscanf(out_file,"%s", captured_data);
   error = 0;
 
   $display("############ Verification Start during accumulation #############");
@@ -334,6 +326,8 @@ initial begin
 
     // Verify SFU output.
     out_scan_file = $fscanf(out_file,"%128b", answer);
+
+    $display("PMEM data %128b", core_instance.pmem_q);  // DEBUG
 
     if (sfp_out === answer)
 	  $display("%2d-th output featuremap Data matched! :D", i);

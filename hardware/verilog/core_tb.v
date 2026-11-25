@@ -300,7 +300,7 @@ initial begin
 	    core_instance.corelet_inst.l0_inst.row_num[0].fifo_instance.wr_ptr);
 
 	// Prime activation read from L0
-	for (p=0; p<3; p=p+1) begin
+	for (p=0; p<1; p=p+1) begin
 		#0.5 clk = 0;
 		l0_rd = 1;
 		execute = 0;
@@ -377,6 +377,15 @@ initial begin
 
 
 	$display("kij=%0d full-valid cycles=%0d", kij, valid_cycles);
+
+	if (kij == 0) begin
+		$display("OFIFO col0 q33=%h q34=%h q35=%h",
+			core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.q33,
+			core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.q34,
+			core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.q35);
+	end
+
+
 	/////////////////////////////////////
 
 	//$display("OFIFO col0 wr=%0d rd=%0d", core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.wr_ptr,
@@ -394,9 +403,17 @@ initial begin
 	//WEN_pmem = 1;
 	//#0.5 clk = 1;
 	//
-	for (t=0; t<len_nij; t=t+1) begin
-	  #0.5 clk = 1'b0; ofifo_rd = 1; CEN_pmem = 0; WEN_pmem = 0;
-	  A_pmem = kij*len_nij+t;
+	for (t=0; t<len_nij+3; t=t+1) begin
+	  #0.5 clk = 1'b0; 
+	  ofifo_rd = (t < len_nij - 1); 
+
+	  if (t >= 2) begin
+	  	A_pmem = kij*len_nij+t-2;
+		CEN_pmem = 0; WEN_pmem = 0;
+	end else begin
+		CEN_pmem = 1; WEN_pmem = 1;
+	end
+
 	  #0.5 clk = 1'b1;
 
 	  #0.1;

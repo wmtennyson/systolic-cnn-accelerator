@@ -26,7 +26,7 @@ mkdir "$WORK/sys_data"
 cd "$WORK"
 
 echo "Compiling..."
-iverilog -g2012 -o compiled -c filelist
+iverilog -Wall -g2012 -o compiled -c filelist
 
 run_case () {
   vvp compiled > "sim_$1.log" 2>&1

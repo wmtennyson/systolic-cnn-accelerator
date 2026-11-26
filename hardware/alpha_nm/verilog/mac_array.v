@@ -22,12 +22,14 @@ module mac_array (clk, reset, out_s, in_w, in_n, inst_w, valid);
 
   genvar i;
  
-  assign out_s = temp[psum_bw*col*9-1:psum_bw*col*8];
+  // take bottom rows psums without hardcoding to 8 rows
+  assign out_s = temp[psum_bw*col*(row+1)-1:psum_bw*col*row];
   assign temp[psum_bw*col*1-1:psum_bw*col*0] = 0;
-  assign valid = valid_temp[row*col-1:row*col-8];
+  // Updated to use row instead of hardcoding 8 to work for any row count
+  assign valid = valid_temp[row*col-1:(row-1)*col];
 
   for (i=1; i < row+1 ; i=i+1) begin : row_num
-      mac_row #(.bw(bw), .psum_bw(psum_bw)) mac_row_instance (
+      mac_row #(.bw(bw), .psum_bw(psum_bw), .col(col)) mac_row_instance (
          .clk(clk),
          .reset(reset),
 	 .in_w(in_w[bw*i-1:bw*(i-1)]),
@@ -37,18 +39,11 @@ module mac_array (clk, reset, out_s, in_w, in_n, inst_w, valid);
 	 .out_s(temp[psum_bw*col*(i+1)-1:psum_bw*col*(i)]));
   end
 
+  integer k;
   always @ (posedge clk) begin
-
-
-    //valid <= valid_temp[row*col-1:row*col-8];
     inst_w_temp[1:0]   <= inst_w; 
-    inst_w_temp[3:2]   <= inst_w_temp[1:0]; 
-    inst_w_temp[5:4]   <= inst_w_temp[3:2]; 
-    inst_w_temp[7:6]   <= inst_w_temp[5:4]; 
-    inst_w_temp[9:8]   <= inst_w_temp[7:6]; 
-    inst_w_temp[11:10] <= inst_w_temp[9:8]; 
-    inst_w_temp[13:12] <= inst_w_temp[11:10]; 
-    inst_w_temp[15:14] <= inst_w_temp[13:12]; 
+    for (k = 1; k < row; k = k + 1)
+      inst_w_temp[2*k +: 2] <= inst_w_temp[2*(k-1) +: 2];
   end
 
 

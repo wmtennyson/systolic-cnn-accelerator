@@ -14,10 +14,10 @@ set -euo pipefail
 
 NSEEDS=${1:-10}
 HW_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-GEN="$HW_DIR/../software/gen_random.py"
-REPO_DIR="$(cd "$HW_DIR/.." && pwd)"
+REPO_DIR="$(cd "$HW_DIR/../.." && pwd)"
+GEN="$REPO_DIR/software/gen_random.py"
 WORK="$REPO_DIR/regression_tmp"      # scratch folder in the repo root
-rm -rf "$WORK"                        # start clean every run
+rm -rf "$WORK"                      # start clean every run
 mkdir -p "$WORK"
 FAILS=0
 

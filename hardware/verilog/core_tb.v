@@ -1,12 +1,12 @@
 // Created by prof. Mingu Kang @VVIP Lab in UCSD ECE department
 // Please do not spread this code without permission 
-// Note from Willy: I added SFU writeback to core.sv using inst[4] (ififo_rd) as the mux select, so assert ififo_rd = 1 with CEN_pmem = 0 and WEN_pmem = 0 (at an unused A_pmem like 1024 + i) right after acc drops to 0—and before reset = 1—to store sfp_out back into pmem
 `timescale 1ns/1ps
 
 `timescale 1ns/1ps
 
 module core_tb;
 
+// Parameters
 parameter bw = 4;
 parameter psum_bw = 16;
 parameter len_kij = 9;
@@ -35,7 +35,6 @@ reg CEN_pmem_q = 1;
 reg WEN_pmem_q = 1;
 reg [10:0] A_pmem_q = 0;
 reg ofifo_rd_q = 0;
-reg sfu_wb_q = 0;     // UPDATED FROM ififo_rd_q
 reg l0_rd_q = 0;
 reg l0_wr_q = 0;
 reg execute_q = 0;
@@ -49,7 +48,6 @@ reg [psum_bw*col-1:0] answer;
 
 
 reg ofifo_rd;
-reg sfu_wb;     // UPDATED FROM ififo_rd
 reg l0_rd;
 reg l0_wr;
 reg execute;
@@ -63,20 +61,24 @@ integer x_file, x_scan_file ; // file_handler
 integer w_file, w_scan_file ; // file_handler
 integer acc_file, acc_scan_file ; // file_handler
 integer out_file, out_scan_file ; // file_handler
-integer pmem_file; // DEBUGGING
 integer captured_data; 
 integer t, i, j, k, kij;
-integer p, km; // DEBUGGING
-integer col_valid_count [0:7];
-integer c;
 integer error;
 
-// ADDED
-integer ky, kx, oy, ox; // 2D kij and onij mappings
-integer oc, addr, valid_cycles;
-reg [127:0] debug_psum;
+// === Added definitions ===
+// 2D kij and onij mappings
+integer ky, kx, oy, ox;
+
+// SFU writeback signal
+reg sfu_wb_q = 0;
+reg sfu_wb;
+
+// PMEM dump file writing
+integer addr;                     
+integer pmem_file;
 
 
+// Map signals to instructions
 assign inst_q[33] = acc_q;
 assign inst_q[32] = CEN_pmem_q;
 assign inst_q[31] = WEN_pmem_q;
@@ -109,7 +111,7 @@ initial begin
   WEN_xmem = 1;
   A_xmem   = 0;
   ofifo_rd = 0;
-  sfu_wb   = 0;  // UPDATED FROM ififo_rd
+  sfu_wb   = 0;  // Added for sfu writeback
   l0_rd    = 0;
   l0_wr    = 0;
   execute  = 0;
@@ -189,15 +191,19 @@ initial begin
     #0.5 clk = 1'b1;   
 
 
-
-
-
     /////// Kernel data writing to memory ///////
 
-    A_xmem = 11'b10000000000;
+    A_xmem = 1024; // Start writing weights at address 1024
 
     for (t=0; t<col; t=t+1) begin  
-      #0.5 clk = 1'b0;  w_scan_file = $fscanf(w_file,"%32b", D_xmem); WEN_xmem = 0; CEN_xmem = 0; if (t>0) A_xmem = A_xmem + 1; 
+      #0.5 clk = 1'b0;  
+      
+      // Read line (all ic for current kernel position)
+      w_scan_file = $fscanf(w_file,"%32b", D_xmem); 
+
+      WEN_xmem = 0; CEN_xmem = 0; 
+      if (t>0) A_xmem = A_xmem + 1; 
+
       #0.5 clk = 1'b1;  
     end
 
@@ -207,22 +213,26 @@ initial begin
 
 
 
-    /////// Kernel data writing to L0 ///////
-    // Prime XMEM read
+    /////// Kernel data writing to L0 (Account for 1 cycle XMEM read latency) ///////
+
+    // Prime XMEM read (xmem_q = XMEM[1024] for first L0 write)
     #0.5 clk = 0;
     CEN_xmem = 0;
     WEN_xmem = 1;
     A_xmem = 1024;
     l0_wr = 0;
     #0.5 clk = 1;
-    //
+    
     for (t=0; t<col; t=t+1) begin
-      #0.5 clk = 1'b0; CEN_xmem = 0; WEN_xmem = 1; 
+      #0.5 clk = 1'b0; 
+      
+      CEN_xmem = 0; WEN_xmem = 1; 
+
+      // Account for XMEM read latency and clamp last weight address (XMEM[1031]).
       A_xmem = 1024 + ((t< col-1) ? t+1 : col-1); 
       l0_wr = 1;
-      #0.5 clk = 1'b1;
 
-      #0.1; $display("t=%0d XMEM_addr=%0d XMEM_data=%h L0_wr=%b", t, A_xmem, core_instance.xmem_q, l0_wr);
+      #0.5 clk = 1'b1;
     end
 
     // End weight transfer: stop L0 writes, deselect XMEM
@@ -238,9 +248,7 @@ initial begin
       #0.5 clk = 1'b1;
     end
     /////////////////////////////////////
-        //
 
-  
 
 
     ////// provide some intermission to clear up the kernel loading ///
@@ -253,21 +261,11 @@ initial begin
       #0.5 clk = 1'b1;  
     end
 
-        // DEBUG
-    #0.1; $display("L0 output = %32b", core_instance.corelet_inst.l0_out);
-    $display("PE(0,0) weight= 4%b",  core_instance.corelet_inst.mac_array_inst.row_num[1].mac_row_instance.col_num[1].mac_tile_instance.b_q);
-       $display("PE(3,0) weight= 4%b",  core_instance.corelet_inst.mac_array_inst.row_num[4].mac_row_instance.col_num[1].mac_tile_instance.b_q);  
-    $display("PE(7,0) weight= 4%b",  core_instance.corelet_inst.mac_array_inst.row_num[8].mac_row_instance.col_num[1].mac_tile_instance.b_q); 
     /////////////////////////////////////
-    //
 
 
-
-
-
-
-    /////// Activation data writing to L0 ///////
-    // Prime XMEM read at addr 0
+    /////// Activation data writing to L0 (Account for 1 cycle XMEM read latency) ///////
+    // Prime XMEM read (xmem_q = XMEM[0] for first L0 write)
     #0.5 clk = 0;
     CEN_xmem = 0;
     WEN_xmem = 1;
@@ -278,195 +276,84 @@ initial begin
     // For current kij, 
     for (t=0; t<len_nij; t=t+1) begin
       
-      #0.5 clk = 1'b0; CEN_xmem = 0; WEN_xmem = 1;
-      A_xmem = (t < len_nij-1) ? t+1 : len_nij-1;   // prefetch next (addr 0 was primed)
-      l0_wr = 1;
+      #0.5 clk = 1'b0; 
+      CEN_xmem = 0; WEN_xmem = 1;
 
+      // Account for XMEM read latency and clamp last activation address (XMEM[35]).
+      A_xmem = (t < len_nij-1) ? t+1 : len_nij-1;
+      l0_wr = 1;
 
       #0.5 clk = 1'b1;
     end
     
-    #0.5 clk = 1'b0; CEN_xmem = 1; l0_wr = 0;
+    #0.5 clk = 1'b0; 
+    CEN_xmem = 1; l0_wr = 0;
     #0.5 clk = 1'b1;
     /////////////////////////////////////
-    //
-    // DEBUG
-    $display("L0 row0 rd_ptr=%0d wr_ptr=%0d", core_instance.corelet_inst.l0_inst.row_num[0].fifo_instance.rd_ptr,
-	    core_instance.corelet_inst.l0_inst.row_num[0].fifo_instance.wr_ptr);
+
+
+	  /////// Execution ///////
+    // Execute one spatial position per cycle.
+    for (t=0; t<len_nij; t=t+1) begin
+      #0.5 clk = 1'b0; 
+      execute = 1; l0_rd = 1;
+      #0.5 clk = 1'b1;
+    end
+
+    #0.5 clk = 1'b0; 
+    execute = 0; l0_rd = 0;
+    #0.5 clk = 1'b1;
+
+    // Allow pipelined outputs to reach OFIFO.
+    for (t=0; t<row+col+4; t=t+1) begin
+      #0.5 clk = 1'b0;
+      #0.5 clk = 1'b1;
+    end
+
+	  /////////////////////////////////////
+
+
+    //////// OFIFO READ ////////
+    // Ideally, OFIFO should be read while execution, but we have enough ofifo
+    // depth so we can fetch out after execution.
+    // PMEM stores one 128-bit psum per (kij, padded spatial position).
+
+    // Prime OFIFO read (prepare first psum (nij=0) for first PMEM write)
+    #0.5 clk = 1'b0;
+    ofifo_rd = 1;
+    CEN_pmem = 1;
+    WEN_pmem = 1;
+    #0.5 clk = 1'b1;
+
+    for (t=0; t<len_nij; t=t+1) begin
+        #0.5 clk = 1'b0;
+
+        // Account for OFIFO read latency and disable read on last iteration
+        ofifo_rd = (t < len_nij-1);
+
+        // Write current psum to PMEM
+        A_pmem = kij*len_nij+t;
+        CEN_pmem = 0;
+        WEN_pmem = 0;
+
+        #0.5 clk = 1'b1;
+    end
+
+    // Disable OFIFO reads and PMEM writes while allowing final pmem_q write to complete
+    #0.5 clk = 1'b0; 
+    ofifo_rd = 0; CEN_pmem = 1; WEN_pmem = 1;
+    #0.5 clk = 1'b1;
+
+    /////////////////////////////////////
 	
-
-	/////// Execution ///////
-	for (c=0; c<8; c=c+1) col_valid_count[c] = 0;
-	//valid_cycles = 0;
-	// Execute one spatial position per cycle.
-	for (t=0; t<len_nij; t=t+1) begin
-	  #0.5 clk = 1'b0; execute = 1; 
-	  l0_rd = 1;
-	  #0.5 clk = 1'b1;
-
-	  for (c=0; c<8; c=c+1) begin
-		  if (core_instance.corelet_inst.array_valid[c]) col_valid_count[c] = col_valid_count[c] + 1;
-	  end
-
-	 // #0.1; if (core_instance.corelet_inst.array_valid == 8'b11111111) begin
-	//	  valid_cycles = valid_cycles + 1;
-	  //end
-
-	 // #0.1; if (core_instance.corelet_inst.array_valid == 8'b11111111) begin
-	//	  $display("ARRAY = %h", core_instance.corelet_inst.array_out);
-	//	  $display("OFIFO = %h", core_instance.ofifo_data);
-	//	 end
-
-	  #0.1; $display("t=%0d PE_execute=%b PE_a=%b PE_in_a=%b", t, 
-		  core_instance.corelet_inst.mac_array_inst.row_num[1].mac_row_instance.col_num[1].mac_tile_instance.inst_w[1], 
-	  core_instance.corelet_inst.mac_array_inst.row_num[1].mac_row_instance.col_num[1].mac_tile_instance.a_q, 
-		  core_instance.corelet_inst.mac_array_inst.row_num[1].mac_row_instance.col_num[1].mac_tile_instance.in_w);
-
-	  #0.1; $display("t=%0d MAC_execute=%b PE_a=%b", t, core_instance.inst[1], core_instance.corelet_inst.mac_array_inst.row_num[1].mac_row_instance.col_num[1].mac_tile_instance.a_q);
-
-	  #0.1; $display("t=%0d L0=%32b execute=%b valid=%8b", t, core_instance.corelet_inst.l0_out, execute, core_instance.corelet_inst.array_valid);
-	  #0.1; $display("PE row0 activation = %b", core_instance.corelet_inst.mac_array_inst.row_num[1].mac_row_instance.col_num[1].mac_tile_instance.a_q);
-
-	  //#0.1; $display("t=%0d valid=%8b Oc0=%16b OC1=%16b OC7=%16b", t, core_instance.corelet_inst.array_valid, 
-	//	  core_instance.corelet_inst.array_out[15:0],
-	//	  core_instance.corelet_inst.array_out[31:16],
-	//	  core_instance.corelet_inst.array_out[127:112]);
-	  //#0.1; $display("t=%0d a=%b b=%b c=%b", t, core_instance.corelet_inst.mac_array_inst.row_num[8].mac_row_instance.col_num[1].mac_tile_instance.a_q, 
-	//	  core_instance.corelet_inst.mac_array_inst.row_num[8].mac_row_instance.col_num[1].mac_tile_instance.b_q, 
-	//	  core_instance.corelet_inst.mac_array_inst.row_num[8].mac_row_instance.col_num[1].mac_tile_instance.c_q); 
-
-
-	end
-
-	// Flush final MAC op
-	//#0.5 clk = 1'b0;
-	//l0_rd = 0;
-	//execute=1;
-	//#0.5 clk = 1;
-	
-	#0.5 clk = 1'b0; execute = 0; l0_rd = 0;
-	#0.5 clk = 1'b1;
-	
-	// Allow pipelined outputs to reach OFIFO.
-	for (t=0; t<row+col+4; t=t+1) begin
-	  #0.5 clk = 1'b0;
-	  #0.5 clk = 1'b1;
-	  for (c=0; c<8; c=c+1) begin
-		  if (core_instance.corelet_inst.array_valid[c]) col_valid_count[c] = col_valid_count[c] + 1;
-	  end
-
-	end
-
-	for (c=0; c<8; c=c+1) begin
-		$display("Col %0d valid cyc = %0d", c, col_valid_count[c]);
-		  //if (core_instance_corelet_inst.array_valid[c]) col_valid_count[c] = col_valid_count[c] + 1;
-	  end
-
-
-	$display("kij=%0d full-valid cycles=%0d", kij, valid_cycles);
-
-	if (kij == 0) begin
-		$display("OFIFO col0 q33=%h q34=%h q35=%h",
-			core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.q33,
-			core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.q34,
-			core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.q35);
-	end
-
-
-	/////////////////////////////////////
-
-	//$display("OFIFO col0 wr=%0d rd=%0d", core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.wr_ptr,
-	//	core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.rd_ptr);
-
-
-	//////// OFIFO READ ////////
-	// Ideally, OFIFO should be read while execution, but we have enough ofifo
-	// depth so we can fetch out after execution.
-	// PMEM stores one 128-bit psum per (kij, padded spatial position).
-	// Prime
-	//#0.5 clk = 0;
-	//ofifo_rd = 1;
-	//CEN_pmem = 1;
-	//WEN_pmem = 1;
-	//#0.5 clk = 1;
-	//
-	for (t=0; t<len_nij+3; t=t+1) begin
-	  #0.5 clk = 1'b0; 
-	  ofifo_rd = (t < len_nij); 
-
-	  if (t >= 1 && t <= len_nij) begin         // write 36 entries, starting one cycle earlier
-	  	A_pmem = kij*len_nij+t-1;
-		CEN_pmem = 0; WEN_pmem = 0;
-	end else begin
-		CEN_pmem = 1; WEN_pmem = 1;
-	end
-
-	  #0.5 clk = 1'b1;
-
-	  #0.1;
-	  if (kij == 0 && t >= 33) begin
-		  //$display("t=%0d valid=%b OFIFO=%h PMEM_D=%h",
-		//	  t, ofifo_valid,
-			//  core_instance.ofifo_data,
-			//  core_instance.pmem_d);
-		$display("t=%0d TB_rd=%b FIFO_rd=%b rd_ptr=%0d wr_ptr=%0d OFIFO=%h", t,
-		       ofifo_rd,
-	       core_instance.corelet_inst.ofifo_inst.rd_en,	       
-			core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.rd_ptr,
-			core_instance.corelet_inst.ofifo_inst.col_num[0].fifo_instance.wr_ptr,
-			core_instance.ofifo_data);
-	  end
-		
-	 // #0.1; $display("kij=%0d t=%0d valid=%b OFIFO=%128b PMEM_D=%128b", kij, t, ofifo_valid, core_instance.ofifo_data, core_instance.pmem_d); // DEBUG
-	end
-	#0.5 clk = 1'b0; ofifo_rd = 0; CEN_pmem = 1; WEN_pmem = 1;
-	#0.5 clk = 1'b1;
-
-	// Pending
-	#0.5 clk = 0;
-	#0.5 clk = 1;
-
-	if (kij == 0)
-		$display("PMEM[35] = %h", core_instance.pmem_inst.memory[35]);
-	/////////////////////////////////////
-	
-	// DEBUG
-	if (kij == 1) begin
-		$display("Col0 weight = %b", core_instance.corelet_inst.mac_array_inst.row_num[1].mac_row_instance.col_num[1].mac_tile_instance.b_q);
-		$display("Col1 weight = %b", core_instance.corelet_inst.mac_array_inst.row_num[1].mac_row_instance.col_num[2].mac_tile_instance.b_q);
-
-
-		$display("PMEM[0] = %128b", core_instance.pmem_inst.memory[0]);
-		$display("PMEM[1] = %128b", core_instance.pmem_inst.memory[1]);
-		$display("PMEM[2] = %128b", core_instance.pmem_inst.memory[2]);
-		$display("PMEM[3] = %128b", core_instance.pmem_inst.memory[3]);
-		$display("PMEM[4] = %128b", core_instance.pmem_inst.memory[4]);
-		$display("PMEM[5] = %128b", core_instance.pmem_inst.memory[5]);
-		$display("PMEM[6] = %128b", core_instance.pmem_inst.memory[6]);
-		$display("PMEM[7] = %128b", core_instance.pmem_inst.memory[7]);
-		$display("PMEM[8] = %128b", core_instance.pmem_inst.memory[8]);
-		$display("PMEM[9] = %128b", core_instance.pmem_inst.memory[9]);
-
-		debug_psum = core_instance.pmem_inst.memory[45];
-		for (oc=0; oc<8; oc=oc+1) begin
-			$display("PMEM[45] OC%0d = %0d", oc, $signed(debug_psum[oc*16 +: 16]));
-		end
-
-	end
-
-
   end  // end of kij loop
-
-  
-
 
   // Close weight file
   $fclose(w_file);
 
 
-  // for (km =0; km < 9; km=km+1) core_instance.pmem_inst.memory[km*36+35] = 128'b0;
-
-	  pmem_file = $fopen("pmem_dump.txt", "w");
+  // ===== Dump PMEM contents to file for PMEM verification =====
+	pmem_file = $fopen("pmem_dump.txt", "w");
   for (addr = 0; addr < 324; addr = addr+1) begin
 	  $fdisplay(pmem_file, "%032h", core_instance.pmem_inst.memory[addr]);
   end
@@ -493,30 +380,21 @@ initial begin
 
     // Accumulate the 9 kernel-position psums for this output pixel.
     for (j=0; j<len_kij+1; j=j+1) begin
-	  #0.5 clk = 1'b0;
-	  if (j<len_kij) begin
-	    ky = j / 3;
-	    kx = j % 3;
+	    #0.5 clk = 1'b0;
+	    if (j<len_kij) begin
+	      ky = j / 3;
+	      kx = j % 3;
 
-	    CEN_pmem = 0; WEN_pmem = 1;
-	    A_pmem = j*len_nij + (oy+ky)*6 + (ox+kx);
-	  end else begin
-	    CEN_pmem = 1; WEN_pmem = 1;
-	  end
-	  if (j>0) acc = 1;
-	  #0.5 clk = 1'b1;
+	      CEN_pmem = 0; WEN_pmem = 1;
+	      A_pmem = j*len_nij + (oy+ky)*6 + (ox+kx);
+	    end 
+      else begin
+	      CEN_pmem = 1; WEN_pmem = 1;
+	    end
 
-      		if (i==0) begin
-	    #0.1;
-	    $display("j=%0d A_pmem=%0d PMEM_addr=%0d acc=%b PMEM_Q=%h SFU=%h",
-		    j, A_pmem,
-		    core_instance.pmem_addr,
-		    acc,
-		    core_instance.pmem_q,
-		    sfp_out);
-   		 end
+	    if (j>0) acc = 1;
 
-
+	    #0.5 clk = 1'b1;
     end
 
     // Wait one cycle: the 9th add (from j=9's acc) lands on this edge
@@ -528,15 +406,12 @@ initial begin
     out_scan_file = $fscanf(out_file,"%128b", answer);
     #0.1; // wait past the clock edge so the SFU's nonblocking update is visible
 
-   // $display("PMEM data %128b", core_instance.pmem_q);  // DEBUG
-
-    if (sfp_out === answer)
-	  $display("%2d-th output featuremap Data matched! :D", i);
+    if (sfp_out === answer) $display("%2d-th output featuremap Data matched! :D", i);
     else begin
-	  $display("%2d-th output featuremap Data ERROR!!", i);
-	  $display("sfpout: %h", sfp_out);
-	  $display("answer: %h", answer);
-	  error = error + 1;
+      $display("%2d-th output featuremap Data ERROR!!", i);
+      $display("sfpout: %h", sfp_out);
+      $display("answer: %h", answer);
+      error = error + 1;
     end
 
     // Write SFU output back to PMEM.
@@ -624,9 +499,4 @@ always @ (posedge clk) begin
    load_q     <= load;
 end
 
-
 endmodule
-
-
-
-

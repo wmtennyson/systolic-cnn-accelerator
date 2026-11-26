@@ -14,6 +14,7 @@ parameter len_onij = 16;
 parameter col = 8;
 parameter row = 8;
 parameter len_nij = 36;
+parameter SPARSE_NM = 0;
 
 reg clk = 0;
 reg reset = 1;
@@ -94,7 +95,7 @@ assign inst_q[1]   = execute_q;
 assign inst_q[0]   = load_q; 
 
 
-core  #(.bw(bw), .col(col), .row(row)) core_instance (
+core  #(.bw(bw), .col(col), .row(row), .SPARSE_NM(SPARSE_NM)) core_instance (
 	.clk(clk), 
 	.inst(inst_q),
 	.ofifo_valid(ofifo_valid),

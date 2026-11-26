@@ -3,7 +3,8 @@ module core #(
     parameter psum_bw = 16,
     parameter col     = 8,
     parameter row     = 8,
-    parameter num     = 2048
+    parameter num     = 2048,
+    parameter SPARSE_NM = 0
 ) (
     input  logic clk,
     input  logic reset,
@@ -89,7 +90,8 @@ module core #(
         .bw             (bw),
         .psum_bw        (psum_bw),
         .col            (col),
-        .row            (row)
+        .row            (row),
+        .SPARSE_NM      (SPARSE_NM)
     ) corelet_inst (
         .clk            (clk),
         .reset          (reset),

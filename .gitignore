@@ -12,3 +12,6 @@
 # Cocotb build artifacts
 verification/sim_build
 verification/*.gtkw
+
+# Regression test temporary files
+regression_tmp/

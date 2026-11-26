@@ -7,6 +7,7 @@ module mac_array (clk, reset, out_s, in_w, in_n, inst_w, valid);
   parameter col = 8;
   parameter row = 8;
   parameter abw = bw;
+  parameter SPARSE_NM = 0;
 
   input  clk, reset;
   output [psum_bw*col-1:0] out_s;
@@ -30,7 +31,8 @@ module mac_array (clk, reset, out_s, in_w, in_n, inst_w, valid);
   assign valid = valid_temp[row*col-1:(row-1)*col];
 
   for (i=1; i < row+1 ; i=i+1) begin : row_num
-      mac_row #(.bw(bw), .psum_bw(psum_bw), .col(col), .abw(abw)) mac_row_instance (
+      mac_row #(.bw(bw), .psum_bw(psum_bw), .col(col), .abw(abw),
+      .SPARSE_NM(SPARSE_NM), .W_SLOT((i-1) % 2)) mac_row_instance (
          .clk(clk),
          .reset(reset),
 	 .in_w(in_w[abw*i-1:abw*(i-1)]),

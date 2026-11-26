@@ -6,6 +6,8 @@ module mac_row (clk, out_s, in_w, in_n, valid, inst_w, reset);
   parameter psum_bw = 16;
   parameter col = 8;
   parameter abw = bw;
+  parameter SPARSE_NM = 0;
+  parameter W_SLOT = 0; 
 
   input clk, reset;
   output [psum_bw*col-1:0] out_s;
@@ -22,7 +24,8 @@ module mac_row (clk, out_s, in_w, in_n, valid, inst_w, reset);
 
   genvar i;
   for (i=1; i < col+1 ; i=i+1) begin : col_num
-      mac_tile #(.bw(bw), .psum_bw(psum_bw), .abw(abw)) mac_tile_instance (
+      mac_tile #(.bw(bw), .psum_bw(psum_bw), .abw(abw),
+        .SPARSE_NM(SPARSE_NM), .W_SLOT(W_SLOT)) mac_tile_instance (
          .clk(clk),
          .reset(reset),
          .in_w(temp[abw*i-1:abw*(i-1)]),

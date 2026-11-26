@@ -284,7 +284,7 @@ initial begin
     for (t=0; t<len_nij; t=t+1) begin
       
       #0.5 clk = 1'b0; CEN_xmem = 0; WEN_xmem = 1;
-      A_xmem = t;
+      A_xmem = (t < len_nij-1) ? t+1 : len_nij-1;   // prefetch next (addr 0 was primed)
       l0_wr = 1;
 
 
@@ -405,10 +405,10 @@ initial begin
 	//
 	for (t=0; t<len_nij+3; t=t+1) begin
 	  #0.5 clk = 1'b0; 
-	  ofifo_rd = (t < len_nij - 1); 
+	  ofifo_rd = (t < len_nij); 
 
-	  if (t >= 2) begin
-	  	A_pmem = kij*len_nij+t-2;
+	  if (t >= 1 && t <= len_nij) begin         // write 36 entries, starting one cycle earlier
+	  	A_pmem = kij*len_nij+t-1;
 		CEN_pmem = 0; WEN_pmem = 0;
 	end else begin
 		CEN_pmem = 1; WEN_pmem = 1;

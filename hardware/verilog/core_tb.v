@@ -225,12 +225,7 @@ initial begin
       #0.1; $display("t=%0d XMEM_addr=%0d XMEM_data=%h L0_wr=%b", t, A_xmem, core_instance.xmem_q, l0_wr);
     end
 
-    // Flush final XMEM weight
-    #0.5 clk = 0;
-    CEN_xmem = 1;
-    l0_wr = 1;
-    #0.5 clk = 1;
-    
+    // End weight transfer: stop L0 writes, deselect XMEM
     #0.5 clk = 1'b0; CEN_xmem = 1; l0_wr = 0;
     #0.5 clk = 1'b1;
     /////////////////////////////////////
@@ -298,14 +293,6 @@ initial begin
     // DEBUG
     $display("L0 row0 rd_ptr=%0d wr_ptr=%0d", core_instance.corelet_inst.l0_inst.row_num[0].fifo_instance.rd_ptr,
 	    core_instance.corelet_inst.l0_inst.row_num[0].fifo_instance.wr_ptr);
-
-	// Prime activation read from L0
-	for (p=0; p<1; p=p+1) begin
-		#0.5 clk = 0;
-		l0_rd = 1;
-		execute = 0;
-		#0.5 clk = 1;
-	end
 	
 
 	/////// Execution ///////
@@ -532,20 +519,14 @@ initial begin
 
     end
 
-    // Flush final accumulation from SFP
-    #0.5 clk = 0;
-    CEN_pmem = 1;
-    WEN_pmem = 1;
-    acc = 1;
+    // Wait one cycle: the 9th add (from j=9's acc) lands on this edge
+    #0.5 clk = 0; acc = 0;
     #0.5 clk = 1;
-
-    #0.5 clk = 1'b0; acc = 0;
-    #0.5 clk = 1'b1;
-
 
 
     // Verify SFU output.
     out_scan_file = $fscanf(out_file,"%128b", answer);
+    #0.1; // wait past the clock edge so the SFU's nonblocking update is visible
 
    // $display("PMEM data %128b", core_instance.pmem_q);  // DEBUG
 
@@ -571,6 +552,40 @@ initial begin
     CEN_pmem = 1;
     WEN_pmem = 1;
     #0.5 clk = 1'b1;
+  end
+
+  ////////// Verify ReLU writeback in PMEM[1024..1039] //////////
+  // Each SFU output was written back to PMEM at 1024+i. Read those addresses back
+  // through the SRAM's read port and compare with psum.txt again, so the stored
+  // values are checked too
+  $fclose(out_file);
+  out_file = $fopen("sys_data/psum.txt", "r");
+  out_scan_file = $fscanf(out_file,"%s", captured_data);
+  out_scan_file = $fscanf(out_file,"%s", captured_data);
+  out_scan_file = $fscanf(out_file,"%s", captured_data);
+
+  $display("############ Verification of PMEM writeback #############");
+  for (i=0; i<len_onij+1; i=i+1) begin
+    #0.5 clk = 1'b0;
+    if (i < len_onij) begin
+      CEN_pmem = 0; WEN_pmem = 1; A_pmem = 1024 + i;
+    end else begin
+      CEN_pmem = 1; WEN_pmem = 1;
+    end
+    #0.5 clk = 1'b1;
+
+    #0.1;
+    if (i > 0) begin
+      out_scan_file = $fscanf(out_file,"%128b", answer);
+      if (core_instance.pmem_q === answer)
+        $display("%2d-th PMEM writeback matched! :D", i-1);
+      else begin
+        $display("%2d-th PMEM writeback ERROR!!", i-1);
+        $display("pmem_q: %h", core_instance.pmem_q);
+        $display("answer: %h", answer);
+        error = error + 1;
+      end
+    end
   end
 
   if (error == 0) begin

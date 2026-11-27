@@ -57,19 +57,22 @@ module mac_array #(
         );
     end
 
-    // Instruction shift register
-    always @(posedge clk) begin
+    // Instruction shift register (staggered for ACC/CLEAR, row-broadcast for DRAIN)
+    always_ff @(posedge clk) begin
         if (reset) begin
             inst_w_temp_q <= '0;
-        end else begin
+        end else if (inst_w == 2'b11) begin         // Broadcast: DRAIN
+            inst_w_temp_q <= {row{2'b11}};
+        end else begin                              // Stagger: HOLDS, CLEAR, ACC
             inst_w_temp_q[1:0] <= inst_w;
 
             for (int r = 1; r < row; r = r + 1) begin
-                inst_w_temp_q[2*r +: 2]
-                    <= inst_w_temp_q[2*(r-1) +: 2];
+            inst_w_temp_q[2*r +: 2] <= (inst_w_temp_q[2*(r-1) +: 2] == 2'b11)
+                                   ? 2'b00
+                                   : inst_w_temp_q[2*(r-1) +: 2];
             end
         end
-    end
+    Vend
 
     // Output Assigments
     assign valid = valid_temp[row*col-1 : (row-1)*col];

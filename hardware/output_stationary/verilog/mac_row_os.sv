@@ -50,7 +50,7 @@ module mac_row #(
             .out_psum_s (out_psum_s[psum_bw*i-1:psum_bw*(i-1)])
         );
 
-        assign valid[i-1] = (inst_temp[2*(i+1)-1 : 2*i] == 2'b10);  // Check if ACC
+        assign valid[i-1] = (inst_temp[2*(i+1)-1 : 2*i] == 2'b11);  // Valid if DRAINed
     end
 
 endmodule

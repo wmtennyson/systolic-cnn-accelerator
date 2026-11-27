@@ -73,12 +73,14 @@ if [ "$MODE" != dense ]; then
 
   # 5) Random 2:4 weights in dense format on the dense build (checks the generator)
   for s in $(seq 1 "$NSEEDS"); do
-    ...                                     (existing loop, unchanged)
+    python3 "$GEN_NM" sys_data "$s" --dense > /dev/null
+    run_case "nm_dense_seed$s" compiled
   done
 
   # 6) Same 2:4 weights, compressed, on the SPARSE_NM=1 build
   for s in $(seq 1 "$NSEEDS"); do
-    ...                                     (existing loop, unchanged)
+    python3 "$GEN_NM" sys_data "$s" > /dev/null
+    run_case "nm_seed$s" compiled_nm
   done
 fi
 

@@ -9,6 +9,9 @@ module corelet #(
 ) (
   input  logic clk,
   input  logic reset,
+  input  logic arr_clr,   // alpha_ctrl C7: clears only the array (mac_array + sparse dly_q), not L0 /
+                          // OFIFO / SFU, so the controller can re-arm the PEs' weight latch while L0
+                          // holds the next weights and the OFIFO is still draining. Tie 0 = unused.
 
   // Control
   input  logic load,       // inst[0]
@@ -57,7 +60,8 @@ module corelet #(
       for (genvar g = 0; g < l0_row; g++) begin : grp
         logic [abw-1:0] dly_q;
         always_ff @(posedge clk) begin
-         if (reset) dly_q <= '0;
+         // if (reset) dly_q <= '0;                  // alpha_ctrl C7: replaced by the next line
+         if (reset | arr_clr) dly_q <= '0;
           else       dly_q <= l0_out[g*abw +: abw];
         end
         assign array_in[(2*g)  *abw +: abw] = l0_out[g*abw +: abw];  // even row: FIFO g
@@ -72,7 +76,8 @@ module corelet #(
   mac_array #(.bw(bw), .psum_bw(psum_bw), .col(col), .row(arr_row), .abw(abw), .SPARSE_NM(SPARSE_NM)) 
   mac_array_inst (
     .clk    (clk),
-    .reset  (reset),
+    // .reset  (reset),                          // alpha_ctrl C7: replaced by the next line
+    .reset  (reset | arr_clr),
     .in_w   (array_in),
     .in_n   ('0),
     .inst_w ({execute, load}),

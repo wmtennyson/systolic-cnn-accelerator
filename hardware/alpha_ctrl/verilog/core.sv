@@ -8,8 +8,8 @@ module core #(
 ) (
     input  logic clk,
     input  logic reset,
-    input  logic arr_clr = 1'b0,   // alpha_ctrl C7: array-only clear from the controller (corelet.sv);
-                                   // defaults to 0, so testbenches that don't connect it are unchanged
+    input  logic arr_clr = 1'b0,   // alpha_ctrl C7, array-only clear from the controller (corelet.sv);
+                                   // defaults to 0
 
     // Inputs
     input logic [33:0] inst,
@@ -97,7 +97,7 @@ module core #(
     ) corelet_inst (
         .clk            (clk),
         .reset          (reset),
-        .arr_clr        (arr_clr),        // alpha_ctrl C7
+        .arr_clr        (arr_clr), // alpha_ctrl C7
 
         .load           (load),
         .execute        (execute),

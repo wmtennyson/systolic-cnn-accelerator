@@ -10,8 +10,8 @@
 *.swo
 
 # Cocotb build artifacts
-verification/sim_build
-verification/*.gtkw
+**/sim_build
+**/*.gtkw
 
 # Regression test temporary files
 regression_tmp/

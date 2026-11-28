@@ -26,7 +26,7 @@ module l0 (clk, in, out, rd, wr, o_full, reset, o_ready);
 
   assign o_full  = |full;
   assign o_ready = ~o_full;
-
+  generate
   for (i=0; i<row ; i=i+1) begin : row_num
       fifo_depth64 #(.bw(bw)) fifo_instance (
 	 .rd_clk(clk),
@@ -40,7 +40,7 @@ module l0 (clk, in, out, rd, wr, o_full, reset, o_ready);
          .reset(reset));
       assign rd_en[i] = rd_sr[i*skew];  // FIFO i starts i*skew cycles after FIFO 0
   end
-
+  endgenerate
 
   always @ (posedge clk) begin
    if (reset) begin

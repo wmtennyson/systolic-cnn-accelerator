@@ -1,7 +1,7 @@
 // On-chip controller (alpha_ctrl, stages 2-3): runs a tiled conv / linear layer with
 // n_it input-channel tiles (row channels each) and n_ot output-channel tiles (col channels
 // each), kernel K in {1, 3}, output H x W. Every pass uses the exact cycle sequence of
-// core_tb.v (docs/stage0_control_spec.md), minus the testbench's in-loop weight writes.
+// core_tb.v, minus the testbench's in-loop weight writes.
 //
 // Loop order (same as core_tiled_tb.v): output tile -> input tile -> kij -> pass phases,
 // then the SFU for that output tile (n_it*K*K psums per output pixel).

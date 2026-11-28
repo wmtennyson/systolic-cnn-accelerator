@@ -55,9 +55,11 @@ module corelet #(
 
   // L0 -> array. Dense: one FIFO per row. 2:4: group g's FIFO feeds row 2g directly and
   // row 2g+1 through a 1-cycle register, matching the array's 1-cycle-per-row instruction delay.
+  genvar g;                                     // Quartus 19.1: genvar declared outside the loop (as on main)
   generate
     if (SPARSE_NM) begin : gen_sparse_in
-      for (genvar g = 0; g < l0_row; g++) begin : grp
+      // for (genvar g = 0; g < l0_row; g++) begin : grp   // replaced by the next line (Quartus 19.1, as on main)
+      for (g = 0; g < l0_row; g = g + 1) begin : grp
         logic [abw-1:0] dly_q;
         always_ff @(posedge clk) begin
          // if (reset) dly_q <= '0;// alpha_ctrl C7 below

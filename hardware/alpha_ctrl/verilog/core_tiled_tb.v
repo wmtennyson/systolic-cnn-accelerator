@@ -13,8 +13,8 @@
 // Both builds preload xmem through inst, exactly like core_tb.v, then:
 //   default build  : the testbench drives the control sequence (stage 1). Loop order is
 //                    output tile -> input tile -> kij -> phases, then the SFU for that output
-//                    tile. Every phase is cycle-for-cycle the one in core_tb.v (see
-//                    docs/stage0_control_spec.md), minus the in-loop weight writes.
+//                    tile. Every phase is cycle-for-cycle the one in core_tb.v, minus the
+//                    in-loop weight writes.
 //   -DUSE_CTRL     : core_ctrl (ctrl.sv FSM + core) runs the whole layer, tile loops included
 //                    (stage 3); the testbench only sets the config, pulses start and waits
 //                    for done.

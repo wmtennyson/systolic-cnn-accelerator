@@ -68,7 +68,18 @@ quartus_sh --flow compile corelet
 quartus_pow corelet --no_input_file \
     --default_input_io_toggle_rate=20%
 
-# Copy reports into quartus_reports
-cp output_files/*.rpt .
+# Copy required Quartus reports
+for report in fit flow map pow sta; do
+    cp "output_files/corelet.$report.rpt" .
+done
+
+# Remove generated compilation files
+rm -rf db incremental_db output_files
+
+# Remove generated project configuration
+rm -f corelet.qpf corelet.qsf corelet.sdc setup.tcl
+rm -f corelet.asm.rpt
+
+echo "Quartus reports generated for $VARIANT"
 
 echo "Quartus reports generated for $VARIANT"

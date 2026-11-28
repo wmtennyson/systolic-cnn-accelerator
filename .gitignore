@@ -15,3 +15,5 @@ verification/*.gtkw
 
 # Regression test temporary files
 regression_tmp/
+# NLP mapping: exported sentences + hardware results (regenerable, ~1.7k folders)
+software/nlp_hw/

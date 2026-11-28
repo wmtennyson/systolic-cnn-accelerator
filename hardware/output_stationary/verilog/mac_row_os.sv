@@ -5,6 +5,7 @@ module mac_row #(
 )(
     input logic                   clk,
     input logic                   reset,
+    input logic                   mode_os,
 
     // Inputs
     input logic [1:0]             inst_w,
@@ -36,6 +37,7 @@ module mac_row #(
         ) mac_tile_instance (
             .clk        (clk),
             .reset      (reset),
+            .mode_os    (mode_os),
 
             .in_w       (temp[bw*i-1:bw*(i-1)]),
             .out_e      (temp[bw*(i+1)-1:bw*i]),
@@ -50,7 +52,7 @@ module mac_row #(
             .out_psum_s (out_psum_s[psum_bw*i-1:psum_bw*(i-1)])
         );
 
-        assign valid[i-1] = (inst_temp[2*(i+1)-1 : 2*i] == 2'b11);  // Valid if DRAINed
+        assign valid[i-1] = mode_os ? (inst_temp[2*(i+1)-1 : 2*i] == 2'b11) :  // OS - Valid on DRAIN
+                                      (inst_temp[2*(i+1)-1]);                  // WS - Valid on ACC
     end
-
 endmodule

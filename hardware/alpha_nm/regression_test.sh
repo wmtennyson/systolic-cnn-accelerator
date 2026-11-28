@@ -63,13 +63,21 @@ if [ "$MODE" != nm ]; then
 fi
 
 if [ "$MODE" != dense ]; then
-  # 3) Random 2:4 weights in dense format on the dense build (checks the generator)
+  # 3) Real 2:4 layer data from software/alpha_nm, dense weight format on the dense build
+  cp "$HW_DIR"/sys_data_nm/input.txt "$HW_DIR"/sys_data_nm/weight.txt "$HW_DIR"/sys_data_nm/psum.txt sys_data/
+  run_case real_nm_dense compiled
+
+  # 4) Same data, compressed weights, on the SPARSE_NM=1 build
+  cp "$HW_DIR"/sys_data_nm/weight_nm.txt sys_data/weight.txt
+  run_case real_nm compiled_nm
+
+  # 5) Random 2:4 weights in dense format on the dense build (checks the generator)
   for s in $(seq 1 "$NSEEDS"); do
     python3 "$GEN_NM" sys_data "$s" --dense > /dev/null
     run_case "nm_dense_seed$s" compiled
   done
 
-  # 4) Same 2:4 weights, compressed, on the SPARSE_NM=1 build
+  # 6) Same 2:4 weights, compressed, on the SPARSE_NM=1 build
   for s in $(seq 1 "$NSEEDS"); do
     python3 "$GEN_NM" sys_data "$s" > /dev/null
     run_case "nm_seed$s" compiled_nm

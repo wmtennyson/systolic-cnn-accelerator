@@ -29,7 +29,7 @@ module mac_array (clk, reset, out_s, in_w, in_n, inst_w, valid);
   assign temp[psum_bw*col*1-1:psum_bw*col*0] = 0;
   // Updated to use row instead of hardcoding 8 to work for any row count
   assign valid = valid_temp[row*col-1:(row-1)*col];
-
+  generate
   for (i=1; i < row+1 ; i=i+1) begin : row_num
       mac_row #(.bw(bw), .psum_bw(psum_bw), .col(col), .abw(abw),
       .SPARSE_NM(SPARSE_NM), .W_SLOT((i-1) % 2)) mac_row_instance (
@@ -41,6 +41,7 @@ module mac_array (clk, reset, out_s, in_w, in_n, inst_w, valid);
          .valid(valid_temp[col*i-1:col*(i-1)]),
 	 .out_s(temp[psum_bw*col*(i+1)-1:psum_bw*col*(i)]));
   end
+  endgenerate
 
   integer k;
   always @ (posedge clk) begin

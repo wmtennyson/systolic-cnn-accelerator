@@ -6,7 +6,7 @@
 // exactly as before. core's reset = external reset OR the controller's per-kij reset.
 //
 // Stage-2 placement only: the controller sits outside corelet here so that no existing file
-// changes. Moving it into corelet (so Quartus sees it) is a later, separate step.
+// changes, will move into corelet later so quartus can account for it
 module core_ctrl #(
   parameter bw        = 4,
   parameter psum_bw   = 16,
@@ -14,7 +14,7 @@ module core_ctrl #(
   parameter row       = 8,
   parameter num       = 2048,
   parameter SPARSE_NM = 0,
-  parameter CTRL_OPT  = 0       // ctrl.sv cycle-saving options (bit mask, see ctrl.sv); 0 = baseline sequence
+  parameter CTRL_OPT  = 0  // ctrl.sv cycle-saving options (bit mask, see ctrl.sv); 0 = baseline sequence
 ) (
   input  logic clk,
   input  logic reset,
@@ -43,7 +43,7 @@ module core_ctrl #(
   logic [33:0] ctrl_inst;
   logic        ctrl_inst_valid;
   logic        ctrl_rst;
-  logic        ctrl_arr_clr;     // C7: array-only clear
+  logic        ctrl_arr_clr; // C7 array-only clear
 
   ctrl #(.col(col), .row(row), .OPT(CTRL_OPT)) ctrl_inst_u (
     .clk           (clk),

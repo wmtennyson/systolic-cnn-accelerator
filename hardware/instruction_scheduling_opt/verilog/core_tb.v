@@ -14,6 +14,7 @@ parameter len_onij = 16;
 parameter col = 8;
 parameter row = 8;
 parameter len_nij = 36;
+parameter ofifo_delay = 16; // OFIFO read latency (in cycles) from read request to valid data output (tuned to be optimal for 8x8 MAC array)
 
 reg clk = 0;
 reg reset = 1;
@@ -129,19 +130,13 @@ initial begin
   x_scan_file = $fscanf(x_file,"%s", captured_data);
 
   //////// Reset /////////
-  #0.5 clk = 1'b0;   reset = 1;
-  #0.5 clk = 1'b1; 
-
-  for (i=0; i<10 ; i=i+1) begin
-    #0.5 clk = 1'b0;
-    #0.5 clk = 1'b1;  
-  end
-
-  #0.5 clk = 1'b0;   reset = 0;
+  #0.5 clk = 1'b0;   
+  reset = 1;
   #0.5 clk = 1'b1; 
 
   #0.5 clk = 1'b0;   
-  #0.5 clk = 1'b1;   
+  reset = 0;
+  #0.5 clk = 1'b1; 
   /////////////////////////
 
   /////// Activation data writing to memory ///////
@@ -172,25 +167,19 @@ initial begin
 
 
   for (kij=0; kij<len_kij; kij=kij+1) begin  // kij loop
-    
-    // Get 2D location of current kij
-    ky = kij / 3;
-    kx = kij % 3;
 
-    #0.5 clk = 1'b0;   reset = 1;
-    #0.5 clk = 1'b1; 
-
-    for (i=0; i<10 ; i=i+1) begin
-      #0.5 clk = 1'b0;
-      #0.5 clk = 1'b1;  
-    end
-
-    #0.5 clk = 1'b0;   reset = 0;
+    // Reset MAC array and FIFOs before new kernel
+    #0.5 clk = 1'b0;   
+    reset = 1;
     #0.5 clk = 1'b1; 
 
     #0.5 clk = 1'b0;   
-    #0.5 clk = 1'b1;   
+    reset = 0;
+    #0.5 clk = 1'b1; 
 
+    // Get 2D location of current kij
+    ky = kij / 3;
+    kx = kij % 3;
 
     /////// Kernel data writing to memory ///////
 
@@ -208,147 +197,205 @@ initial begin
       #0.5 clk = 1'b1;  
     end
 
-    #0.5 clk = 1'b0;  WEN_xmem = 1;  CEN_xmem = 1; A_xmem = 0;
+    #0.5 clk = 1'b0;  
+    WEN_xmem = 1;  CEN_xmem = 1; A_xmem = 0;
     #0.5 clk = 1'b1; 
     /////////////////////////////////////
 
 
-
-    /////// Kernel data writing to L0 (Account for 1 cycle XMEM read latency) ///////
-
+    /////// Pipelined kernel loading to L0 and PEs ///////
     // Prime XMEM read (xmem_q = XMEM[1024] for first L0 write)
-    #0.5 clk = 0;
+    #0.5 clk = 1'b0;
     CEN_xmem = 0;
     WEN_xmem = 1;
     A_xmem = 1024;
     l0_wr = 0;
-    #0.5 clk = 1;
-    
-    for (t=0; t<col; t=t+1) begin
-      #0.5 clk = 1'b0; 
-      
-      CEN_xmem = 0; WEN_xmem = 1; 
-
-      // Account for XMEM read latency and clamp last weight address (XMEM[1031]).
-      A_xmem = 1024 + ((t< col-1) ? t+1 : col-1); 
-      l0_wr = 1;
-
-      #0.5 clk = 1'b1;
-    end
-
-    // End weight transfer: stop L0 writes, deselect XMEM
-    #0.5 clk = 1'b0; CEN_xmem = 1; l0_wr = 0;
+    l0_rd = 0;
+    load = 0;
     #0.5 clk = 1'b1;
-    /////////////////////////////////////
 
-
-
-    /////// Kernel loading to PEs ///////
+    // Overlap weight writes to L0 with weight loading to PEs
     for (t=0; t<col; t=t+1) begin
-      #0.5 clk = 1'b0; l0_rd = 1; load = 1;
-      #0.5 clk = 1'b1;
-    end
-    /////////////////////////////////////
-
-
-
-    ////// provide some intermission to clear up the kernel loading ///
-    #0.5 clk = 1'b0;  load = 0; l0_rd = 0;
-    #0.5 clk = 1'b1;  
-  
-
-    for (i=0; i<10 ; i=i+1) begin
-      #0.5 clk = 1'b0;
-      #0.5 clk = 1'b1;  
-    end
-
-    /////////////////////////////////////
-
-
-    /////// Activation data writing to L0 (Account for 1 cycle XMEM read latency) ///////
-    // Prime XMEM read (xmem_q = XMEM[0] for first L0 write)
-    #0.5 clk = 0;
-    CEN_xmem = 0;
-    WEN_xmem = 1;
-    A_xmem = ky*6 + kx;
-    l0_wr = 0;
-    #0.5 clk = 1;
-
-    // For current kij, fetch activations for each output pixel
-    for (t=0; t<len_onij; t=t+1) begin
 
       #0.5 clk = 1'b0;
       CEN_xmem = 0; WEN_xmem = 1;
 
-      // Account for XMEM read latency
-      next_onij = (t < len_onij-1) ? t+1 : len_onij-1;
+      // Account for XMEM read latency and clamp last weight address
+      A_xmem = 1024 + ((t<col-1) ? t+1 : col-1);
 
-      oy = next_onij / 4;
-      ox = next_onij % 4;
-
-      A_xmem = (oy+ky)*6 + (ox+kx);
+      // Concurrent L0 writes and reads
       l0_wr = 1;
+      l0_rd = 1;
+      load = 1;
 
       #0.5 clk = 1'b1;
     end
 
-    #0.5 clk = 1'b0;
-    CEN_xmem = 1; l0_wr = 0;
+    // End kernel loading
+    #0.5 clk = 1'b0;`
+    CEN_xmem = 1;
+    l0_wr = 0;
+    l0_rd = 0;
+    load = 0;
     #0.5 clk = 1'b1;
+    /////////////////////////////////////
 
+    /////// Pipelined activation loading to L0, MAC execution, OFIFO read, PMEM write  ///////
 
-	  /////// Execution ///////
-    // Execute one spatial position per cycle.
-    for (t=0; t<len_onij; t=t+1) begin
-      #0.5 clk = 1'b0; 
-      execute = 1; l0_rd = 1;
-      #0.5 clk = 1'b1;
-    end
-
-    #0.5 clk = 1'b0; 
-    execute = 0; l0_rd = 0;
-    #0.5 clk = 1'b1;
-
-    // Allow pipelined outputs to reach OFIFO.
-    for (t=0; t<row+col+4; t=t+1) begin
-      #0.5 clk = 1'b0;
-      #0.5 clk = 1'b1;
-    end
-
-	  /////////////////////////////////////
-
-
-    //////// OFIFO READ ////////
-    // Ideally, OFIFO should be read while execution, but we have enough ofifo
-    // depth so we can fetch out after execution.
-    // PMEM stores one 128-bit psum per (kij, padded spatial position).
-
-    // Prime OFIFO read (prepare first psum (nij=0) for first PMEM write)
+    // Prime XMEM read for first L0 write
     #0.5 clk = 1'b0;
-    ofifo_rd = 1;
+    CEN_xmem = 0;
+    WEN_xmem = 1;
+    A_xmem = ky*6 + kx;
+    l0_wr = 0;
+    l0_rd = 0;
+    execute = 0;
+    ofifo_rd = 0;
     CEN_pmem = 1;
     WEN_pmem = 1;
     #0.5 clk = 1'b1;
 
-    for (t=0; t<len_onij; t=t+1) begin
+    for (t=0; t<len_onij+ofifo_delay+1; t=t+1) begin
+
       #0.5 clk = 1'b0;
 
-      // Account for OFIFO read latency and disable read on last iteration
-      ofifo_rd = (t < len_onij-1);
+      // Activation loading and MAC execution
+      if (t<len_onij) begin
 
-      // Write current psum to PMEM
-      A_pmem = kij*len_onij+t;
-      CEN_pmem = 0;
-      WEN_pmem = 0;
+        CEN_xmem = 0; WEN_xmem = 1;
+
+        // Account for XMEM read latency
+        next_onij = (t<len_onij-1) ? t+1 : len_onij-1;
+
+        oy = next_onij / 4;
+        ox = next_onij % 4;
+
+        A_xmem = (oy+ky)*6 + (ox+kx);
+
+        l0_wr = 1;
+        l0_rd = 1;
+        execute = 1;
+
+      end else begin
+
+        CEN_xmem = 1;
+        l0_wr = 0;
+        l0_rd = 0;
+        execute = 0;
+
+      end
+
+      // Read OFIFO after accounting for MAC array propagation latency
+      if (t>=ofifo_delay && t<ofifo_delay+len_onij)
+        ofifo_rd = 1;
+      else
+        ofifo_rd = 0;
+
+      // Write psums to PMEM (account for 1 cycle OFIFO read latency)
+      if (t>=ofifo_delay+1 && t<ofifo_delay+len_onij+1) begin
+
+        A_pmem = kij*len_onij + (t-ofifo_delay-1);
+        CEN_pmem = 0;
+        WEN_pmem = 0;
+
+      end else begin
+
+        CEN_pmem = 1;
+        WEN_pmem = 1;
+
+      end
 
       #0.5 clk = 1'b1;
     end
 
-    // Disable OFIFO reads and PMEM writes while allowing final pmem_q write to complete
+    // End execution and writeback
     #0.5 clk = 1'b0;
-    ofifo_rd = 0; CEN_pmem = 1; WEN_pmem = 1;
+    CEN_xmem = 1;
+    l0_wr = 0;
+    l0_rd = 0;
+    execute = 0;
+    ofifo_rd = 0;
+    CEN_pmem = 1;
+    WEN_pmem = 1;
     #0.5 clk = 1'b1;
+
     /////////////////////////////////////
+
+
+    // /////// Pipelined activation loading to L0 and execution ///////
+    // // Prime XMEM read for first L0 write
+    // #0.5 clk = 1'b0;
+    // CEN_xmem = 0;
+    // WEN_xmem = 1;
+    // A_xmem = ky*6 + kx;
+    // l0_wr = 0;
+    // l0_rd = 0;
+    // execute = 0;
+    // #0.5 clk = 1'b1;
+
+    // // Overlap activation writes to L0 with MAC execution
+    // for (t=0; t<len_onij; t=t+1) begin
+
+    //   #0.5 clk = 1'b0;
+    //   CEN_xmem = 0; WEN_xmem = 1;
+
+    //   // Account for XMEM read latency
+    //   next_onij = (t<len_onij-1) ? t+1 : len_onij-1;
+
+    //   oy = next_onij / 4;
+    //   ox = next_onij % 4;
+
+    //   A_xmem = (oy+ky)*6 + (ox+kx);
+
+    //   // Concurrent L0 writes and reads (L0 internally delays reads)
+    //   l0_wr = 1;
+    //   l0_rd = 1;
+    //   execute = 1;
+
+    //   #0.5 clk = 1'b1;
+    // end
+
+    // // End activation loading and execution
+    // #0.5 clk = 1'b0;
+    // CEN_xmem = 1;
+    // l0_wr = 0;
+    // l0_rd = 0;
+    // execute = 0;
+    // #0.5 clk = 1'b1;
+    // /////////////////////////////////////
+
+
+    // //////// OFIFO READ ////////
+    // // Ideally, OFIFO should be read while execution, but we have enough ofifo
+    // // depth so we can fetch out after execution.
+    // // PMEM stores one 128-bit psum per (kij, padded spatial position).
+
+    // // Prime OFIFO read (prepare first psum (nij=0) for first PMEM write)
+    // #0.5 clk = 1'b0;
+    // ofifo_rd = 1;
+    // CEN_pmem = 1;
+    // WEN_pmem = 1;
+    // #0.5 clk = 1'b1;
+
+    // for (t=0; t<len_onij; t=t+1) begin
+    //   #0.5 clk = 1'b0;
+
+    //   // Account for OFIFO read latency and disable read on last iteration
+    //   ofifo_rd = (t < len_onij-1);
+
+    //   // Write current psum to PMEM
+    //   A_pmem = kij*len_onij+t;
+    //   CEN_pmem = 0;
+    //   WEN_pmem = 0;
+
+    //   #0.5 clk = 1'b1;
+    // end
+
+    // // Disable OFIFO reads and PMEM writes while allowing final pmem_q write to complete
+    // #0.5 clk = 1'b0;
+    // ofifo_rd = 0; CEN_pmem = 1; WEN_pmem = 1;
+    // #0.5 clk = 1'b1;
+    // /////////////////////////////////////
 	
   end  // end of kij loop
 

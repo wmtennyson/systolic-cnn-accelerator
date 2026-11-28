@@ -15,14 +15,11 @@
 
 # Regression test temporary files
 regression_tmp/
-<<<<<<< HEAD
 # NLP mapping: exported sentences + hardware results (regenerable, ~1.7k folders)
 software/nlp_hw/
-=======
 
 # Quartus build output
 **/db/
 **/incremental_db/
 **/output_files/
 *.qws
->>>>>>> origin/main

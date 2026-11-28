@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+#
+# Usage (UCSD LinuxCloud):
+#   hardware/synthesis.sh                          # same as: hardware/synthesis.sh baseline
+#   hardware/synthesis.sh baseline                 # dense 8x8 design in hardware/baseline/
+#   hardware/synthesis.sh alpha_nm                 # alpha_nm RTL, dense build (SPARSE_NM=0)
+#   SPARSE_NM=1 hardware/synthesis.sh alpha_nm     # alpha_nm RTL, 2:4 build (4x8 array)
 
 set -euo pipefail
 
@@ -13,6 +19,10 @@ VARIANT_DIR="$HW_DIR/$VARIANT"
 # Create synthesis directory
 mkdir -p "$VARIANT_DIR/quartus_reports"
 cd "$VARIANT_DIR/quartus_reports"
+
+# Remove leftovers from a previous (possibly failed) run
+rm -rf db incremental_db output_files
+rm -f corelet.qpf corelet.qsf corelet.sdc setup.tcl
 
 # Generate Quartus project configuration
 cat > setup.tcl <<'EOF'
@@ -47,6 +57,11 @@ foreach f [glob -nocomplain ../verilog/*.v ../verilog/*.sv] {
 
 # Timing constraints
 set_global_assignment -name SDC_FILE corelet.sdc
+
+# 2:4 build when run as SPARSE_NM=1 hardware/synthesis.sh alpha_nm
+if {[info exists ::env(SPARSE_NM)] && $::env(SPARSE_NM) == 1} {
+    set_parameter -name SPARSE_NM 1
+}
 
 export_assignments
 project_close

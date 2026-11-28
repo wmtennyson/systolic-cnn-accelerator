@@ -1,6 +1,6 @@
 Analysis & Synthesis report for corelet
-Fri Nov 27 15:15:13 2026
-Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
+Fri Nov 27 21:43:38 2026
+Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
 
 
 ---------------------
@@ -902,7 +902,7 @@ Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2021  Intel Corporation. All rights reserved.
+Copyright (C) 2019  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
@@ -922,8 +922,8 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Nov 27 15:15:13 2026       ;
-; Quartus Prime Version              ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
+; Analysis & Synthesis Status        ; Successful - Fri Nov 27 21:43:38 2026       ;
+; Quartus Prime Version              ; 19.1.0 Build 670 09/22/2019 SJ Lite Edition ;
 ; Revision Name                      ; corelet                                     ;
 ; Top-level Entity Name              ; corelet                                     ;
 ; Family                             ; Cyclone IV GX                               ;
@@ -951,8 +951,6 @@ https://fpgasoftware.intel.com/eula.
 ; Device                                                           ; EP4CGX150DF31I7AD  ;                    ;
 ; Top-level entity name                                            ; corelet            ; corelet            ;
 ; Family name                                                      ; Cyclone IV GX      ; Cyclone V          ;
-; Verilog Show LMF Mapping Messages                                ; Off                ;                    ;
-; Verilog Version                                                  ; SystemVerilog_2005 ; Verilog_2001       ;
 ; Use smart compilation                                            ; Off                ; Off                ;
 ; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
 ; Enable compact report table                                      ; Off                ; Off                ;
@@ -960,6 +958,7 @@ https://fpgasoftware.intel.com/eula.
 ; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
 ; Preserve fewer node names                                        ; On                 ; On                 ;
 ; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
 ; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
 ; State Machine Processing                                         ; Auto               ; Auto               ;
 ; Safe State Machine                                               ; Off                ; Off                ;
@@ -1032,11 +1031,11 @@ https://fpgasoftware.intel.com/eula.
 
 +-------------------------------------------------+
 ; Analysis & Synthesis Default Parameter Settings ;
-+-----------+-------------------------------------+
-; Name      ; Setting                             ;
-+-----------+-------------------------------------+
-; SPARSE_NM ; 1                                   ;
-+-----------+-------------------------------------+
++------+------------------------------------------+
+; Name ; Setting                                  ;
++------+------------------------------------------+
+;      ; 1                                        ;
++------+------------------------------------------+
 
 
 +------------------------------------------+
@@ -1044,50 +1043,45 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 20          ;
-; Maximum allowed            ; 12          ;
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.01        ;
-; Maximum used               ; 12          ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
 ;     Processor 2            ;   0.2%      ;
 ;     Processor 3            ;   0.1%      ;
 ;     Processor 4            ;   0.1%      ;
-;     Processor 5            ;   0.1%      ;
-;     Processor 6            ;   0.1%      ;
-;     Processor 7            ;   0.1%      ;
-;     Processor 8            ;   0.1%      ;
-;     Processors 9-12        ;   0.1%      ;
 +----------------------------+-------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                     ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                 ; Library ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------+---------+
-; verilog/sfu.sv                   ; yes             ; User SystemVerilog HDL File  ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/sfu.sv          ;         ;
-; verilog/ofifo.v                  ; yes             ; User Verilog HDL File        ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/ofifo.v         ;         ;
-; verilog/mac_tile.v               ; yes             ; User Verilog HDL File        ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_tile.v      ;         ;
-; verilog/mac_row.v                ; yes             ; User Verilog HDL File        ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_row.v       ;         ;
-; verilog/mac_array.v              ; yes             ; User Verilog HDL File        ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_array.v     ;         ;
-; verilog/mac.v                    ; yes             ; User Verilog HDL File        ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v           ;         ;
-; verilog/l0.v                     ; yes             ; User Verilog HDL File        ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/l0.v            ;         ;
-; verilog/fifo_mux_16_1.v          ; yes             ; User Verilog HDL File        ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_16_1.v ;         ;
-; verilog/fifo_mux_8_1.v           ; yes             ; User Verilog HDL File        ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_8_1.v  ;         ;
-; verilog/fifo_mux_2_1.v           ; yes             ; User Verilog HDL File        ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_2_1.v  ;         ;
-; verilog/fifo_depth64.v           ; yes             ; User Verilog HDL File        ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v  ;         ;
-; verilog/corelet.sv               ; yes             ; User SystemVerilog HDL File  ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv      ;         ;
-; lpm_mult.tdf                     ; yes             ; Megafunction                 ; d:/intelfpga_lite/21.1/quartus/libraries/megafunctions/lpm_mult.tdf          ;         ;
-; aglobal211.inc                   ; yes             ; Megafunction                 ; d:/intelfpga_lite/21.1/quartus/libraries/megafunctions/aglobal211.inc        ;         ;
-; lpm_add_sub.inc                  ; yes             ; Megafunction                 ; d:/intelfpga_lite/21.1/quartus/libraries/megafunctions/lpm_add_sub.inc       ;         ;
-; multcore.inc                     ; yes             ; Megafunction                 ; d:/intelfpga_lite/21.1/quartus/libraries/megafunctions/multcore.inc          ;         ;
-; bypassff.inc                     ; yes             ; Megafunction                 ; d:/intelfpga_lite/21.1/quartus/libraries/megafunctions/bypassff.inc          ;         ;
-; altshift.inc                     ; yes             ; Megafunction                 ; d:/intelfpga_lite/21.1/quartus/libraries/megafunctions/altshift.inc          ;         ;
-; db/mult_c5t.tdf                  ; yes             ; Auto-Generated Megafunction  ; D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/db/mult_c5t.tdf         ;         ;
-+----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------+---------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                        ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                                    ; Library ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
+; ../verilog/fifo_depth64.v        ; yes             ; User Verilog HDL File        ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v          ;         ;
+; ../verilog/fifo_mux_16_1.v       ; yes             ; User Verilog HDL File        ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_16_1.v         ;         ;
+; ../verilog/fifo_mux_2_1.v        ; yes             ; User Verilog HDL File        ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_2_1.v          ;         ;
+; ../verilog/fifo_mux_8_1.v        ; yes             ; User Verilog HDL File        ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_8_1.v          ;         ;
+; ../verilog/l0.v                  ; yes             ; User Verilog HDL File        ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/l0.v                    ;         ;
+; ../verilog/mac.v                 ; yes             ; User Verilog HDL File        ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v                   ;         ;
+; ../verilog/mac_array.v           ; yes             ; User Verilog HDL File        ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_array.v             ;         ;
+; ../verilog/mac_row.v             ; yes             ; User Verilog HDL File        ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_row.v               ;         ;
+; ../verilog/mac_tile.v            ; yes             ; User Verilog HDL File        ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_tile.v              ;         ;
+; ../verilog/ofifo.v               ; yes             ; User Verilog HDL File        ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/ofifo.v                 ;         ;
+; ../verilog/corelet.sv            ; yes             ; User SystemVerilog HDL File  ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv              ;         ;
+; ../verilog/sfu.sv                ; yes             ; User SystemVerilog HDL File  ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/sfu.sv                  ;         ;
+; lpm_mult.tdf                     ; yes             ; Megafunction                 ; /software/quartus-lite/quartus/libraries/megafunctions/lpm_mult.tdf                                             ;         ;
+; aglobal191.inc                   ; yes             ; Megafunction                 ; /software/quartus-lite/quartus/libraries/megafunctions/aglobal191.inc                                           ;         ;
+; lpm_add_sub.inc                  ; yes             ; Megafunction                 ; /software/quartus-lite/quartus/libraries/megafunctions/lpm_add_sub.inc                                          ;         ;
+; multcore.inc                     ; yes             ; Megafunction                 ; /software/quartus-lite/quartus/libraries/megafunctions/multcore.inc                                             ;         ;
+; bypassff.inc                     ; yes             ; Megafunction                 ; /software/quartus-lite/quartus/libraries/megafunctions/bypassff.inc                                             ;         ;
+; altshift.inc                     ; yes             ; Megafunction                 ; /software/quartus-lite/quartus/libraries/megafunctions/altshift.inc                                             ;         ;
+; db/mult_c5t.tdf                  ; yes             ; Auto-Generated Megafunction  ; /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/quartus_reports/db/mult_c5t.tdf ;         ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
 
 
 +---------------------------------------------+
@@ -1325,165 +1319,165 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                           ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------+
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[0].fifo_instance|rd_ptr[0]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[0].fifo_instance|rd_ptr[4]                                            ;
 ; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[1].fifo_instance|rd_ptr[3]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[2].fifo_instance|rd_ptr[0]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[3].fifo_instance|rd_ptr[6]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[4].fifo_instance|rd_ptr[3]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[5].fifo_instance|rd_ptr[4]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[6].fifo_instance|rd_ptr[2]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[7].fifo_instance|rd_ptr[3]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[0].fifo_instance|wr_ptr[3]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[1].fifo_instance|wr_ptr[3]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[2].fifo_instance|wr_ptr[2]                                            ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[3].fifo_instance|wr_ptr[6]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[2].fifo_instance|rd_ptr[3]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[3].fifo_instance|rd_ptr[5]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[4].fifo_instance|rd_ptr[6]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[5].fifo_instance|rd_ptr[1]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[6].fifo_instance|rd_ptr[3]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[7].fifo_instance|rd_ptr[0]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[0].fifo_instance|wr_ptr[6]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[1].fifo_instance|wr_ptr[1]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[2].fifo_instance|wr_ptr[6]                                            ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[3].fifo_instance|wr_ptr[2]                                            ;
 ; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[4].fifo_instance|wr_ptr[6]                                            ;
 ; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[5].fifo_instance|wr_ptr[0]                                            ;
 ; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[6].fifo_instance|wr_ptr[0]                                            ;
 ; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[7].fifo_instance|wr_ptr[1]                                            ;
-; 3:1                ; 128 bits  ; 256 LEs       ; 128 LEs              ; 128 LEs                ; Yes        ; |corelet|sfu:sfu_inst|acc_reg[3][7]                                                                                  ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|a_q[1]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|a_q[6]   ;
+; 3:1                ; 128 bits  ; 256 LEs       ; 128 LEs              ; 128 LEs                ; Yes        ; |corelet|sfu:sfu_inst|acc_reg[6][3]                                                                                  ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|idx_q[1] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|a_q[15]  ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|idx_q[1] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|a_q[15]  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|a_q[12]  ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|a_q[5]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|a_q[8]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|a_q[12]  ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|a_q[1]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|idx_q[0] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|a_q[6]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|idx_q[1] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|a_q[2]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|idx_q[0] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|a_q[7]   ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|a_q[11]  ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|a_q[0]   ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|a_q[3]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|a_q[8]   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|a_q[1]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|idx_q[1] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|a_q[4]   ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|a_q[5]   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|a_q[1]   ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|a_q[3]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|a_q[12]  ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|a_q[9]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|idx_q[0] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|a_q[11]  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|idx_q[0] ;
 ; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|a_q[13]  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|a_q[3]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|a_q[0]   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|a_q[8]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|idx_q[0] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|a_q[3]   ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|a_q[1]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|a_q[6]   ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|l0:l0_inst|fifo_depth64:row_num[1].fifo_instance|rd_ptr[3]                                                  ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|a_q[3]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|idx_q[1] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|a_q[3]   ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|l0:l0_inst|fifo_depth64:row_num[1].fifo_instance|rd_ptr[4]                                                  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|a_q[6]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|a_q[7]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|a_q[0]   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|a_q[5]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|idx_q[0] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|a_q[1]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|idx_q[0] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|a_q[9]   ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|a_q[9]   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|a_q[10]  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|a_q[8]   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|a_q[5]   ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|a_q[3]   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|a_q[14]  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|a_q[0]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|a_q[8]   ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|l0:l0_inst|fifo_depth64:row_num[1].fifo_instance|wr_ptr[3]                                                  ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|a_q[10]  ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|idx_q[0] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|a_q[15]  ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|l0:l0_inst|fifo_depth64:row_num[1].fifo_instance|wr_ptr[0]                                                  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|a_q[12]  ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|a_q[5]   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|a_q[10]  ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|idx_q[0] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|a_q[14]  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|a_q[9]   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|idx_q[1] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|a_q[15]  ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|a_q[13]  ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|idx_q[1] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|a_q[5]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|idx_q[0] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|a_q[3]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|idx_q[1] ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|a_q[3]   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|idx_q[0] ;
 ; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|a_q[11]  ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|idx_q[0] ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|a_q[5]   ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|rd_ptr[5]                                                  ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|wr_ptr[2]                                                  ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|b_q[3]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|b_q[0]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|b_q[1]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|a_q[13]  ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|rd_ptr[6]                                                  ;
+; 3:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |corelet|l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|wr_ptr[5]                                                  ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|b_q[1]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|b_q[3]   ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|b_q[0]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|b_q[1]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|b_q[2]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|b_q[3]   ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|b_q[0]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|b_q[2]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|b_q[0]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|b_q[2]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|b_q[0]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|b_q[2]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|b_q[2]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|b_q[2]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|b_q[3]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|b_q[2]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|b_q[3]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|b_q[0]   ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|b_q[0]   ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|b_q[3]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|b_q[3]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|b_q[2]   ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|b_q[0]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|b_q[3]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|b_q[1]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|b_q[2]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|b_q[3]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|b_q[3]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|b_q[3]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|b_q[3]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|b_q[3]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|b_q[3]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|b_q[3]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|b_q[2]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|b_q[1]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|b_q[1]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|b_q[2]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|b_q[1]   ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|b_q[3]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|b_q[0]   ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|b_q[0]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|b_q[2]   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|b_q[3]   ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|b_q[3]   ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|Mux1     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|Mux2     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|Mux2     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|Mux0     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|Mux0     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|Mux0     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|Mux2     ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|Mux3     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|Mux3     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|Mux0     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|Mux3     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|Mux2     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|Mux1     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|Mux1     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|Mux1     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|Mux3     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|Mux1     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|Mux2     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|Mux2     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|Mux2     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|Mux2     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|Mux2     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|Mux2     ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|Mux0     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|Mux2     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|Mux3     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|Mux2     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|Mux1     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|Mux0     ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|Mux3     ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|Mux3     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|Mux0     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|Mux0     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|Mux1     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|Mux3     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|Mux1     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|Mux0     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|Mux2     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|Mux2     ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|Mux0     ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|Mux3     ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|Mux0     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|Mux0     ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|Mux0     ;
-; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[0].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[3].G2                 ;
-; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[1].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[10].G2                ;
-; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[2].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[15].G2                ;
-; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[3].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[12].G2                ;
-; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[4].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[12].G2                ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|Mux3     ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |corelet|mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|Mux1     ;
+; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[0].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[1].G2                 ;
+; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[1].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[14].G2                ;
+; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[2].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[0].G2                 ;
+; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[3].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[14].G2                ;
+; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[4].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[1].G2                 ;
 ; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[5].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[15].G2                ;
-; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[6].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[2].G2                 ;
-; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[7].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[15].G2                ;
-; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|l0:l0_inst|fifo_depth64:row_num[1].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[3].G2                       ;
-; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[11].G2                      ;
+; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[6].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[15].G2                ;
+; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|ofifo:ofifo_inst|fifo_depth64:col_num[7].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[14].G2                ;
+; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|l0:l0_inst|fifo_depth64:row_num[1].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[12].G2                      ;
+; 64:1               ; 16 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; No         ; |corelet|l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|fifo_mux_2_1:fifo_mux_2_1c|gen[0].G2                       ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------+
 
 
@@ -11680,7 +11674,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:10     ;
+; Top            ; 00:00:33     ;
 +----------------+--------------+
 
 
@@ -11689,86 +11683,88 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
-    Info: Processing started: Fri Nov 27 15:14:56 2026
+    Info: Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+    Info: Processing started: Fri Nov 27 21:42:41 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off corelet -c corelet
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/sfu.sv
-    Info (12023): Found entity 1: sfu File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/sfu.sv Line: 8
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/ofifo.v
-    Info (12023): Found entity 1: ofifo File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/ofifo.v Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/mac_tile.v
-    Info (12023): Found entity 1: mac_tile File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_tile.v Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/mac_row.v
-    Info (12023): Found entity 1: mac_row File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_row.v Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/mac_array.v
-    Info (12023): Found entity 1: mac_array File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_array.v Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/mac.v
-    Info (12023): Found entity 1: mac File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/l0.v
-    Info (12023): Found entity 1: l0 File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/l0.v Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/fifo_mux_16_1.v
-    Info (12023): Found entity 1: fifo_mux_16_1 File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_16_1.v Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/fifo_mux_8_1.v
-    Info (12023): Found entity 1: fifo_mux_8_1 File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_8_1.v Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/fifo_mux_2_1.v
-    Info (12023): Found entity 1: fifo_mux_2_1 File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_2_1.v Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/fifo_depth64.v
-    Info (12023): Found entity 1: fifo_depth64 File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v Line: 3
-Info (12021): Found 1 design units, including 1 entities, in source file verilog/corelet.sv
-    Info (12023): Found entity 1: corelet File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 3
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v
+    Info (12023): Found entity 1: fifo_depth64 File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth8.v
+    Info (12023): Found entity 1: fifo_depth8 File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth8.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_16_1.v
+    Info (12023): Found entity 1: fifo_mux_16_1 File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_16_1.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_2_1.v
+    Info (12023): Found entity 1: fifo_mux_2_1 File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_2_1.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_8_1.v
+    Info (12023): Found entity 1: fifo_mux_8_1 File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_8_1.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/l0.v
+    Info (12023): Found entity 1: l0 File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/l0.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v
+    Info (12023): Found entity 1: mac File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_array.v
+    Info (12023): Found entity 1: mac_array File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_array.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_row.v
+    Info (12023): Found entity 1: mac_row File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_row.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_tile.v
+    Info (12023): Found entity 1: mac_tile File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_tile.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/ofifo.v
+    Info (12023): Found entity 1: ofifo File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/ofifo.v Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv
+    Info (12023): Found entity 1: corelet File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/sfu.sv
+    Info (12023): Found entity 1: sfu File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/sfu.sv Line: 8
 Info (12127): Elaborating entity "corelet" for the top level hierarchy
-Info (12128): Elaborating entity "l0" for hierarchy "l0:l0_inst" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 51
-Info (12128): Elaborating entity "fifo_depth64" for hierarchy "l0:l0_inst|fifo_depth64:row_num[0].fifo_instance" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/l0.v Line: 40
-Warning (10230): Verilog HDL assignment warning at fifo_depth64.v(132): truncated value with size 32 to match size of target (7) File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v Line: 132
-Warning (10230): Verilog HDL assignment warning at fifo_depth64.v(143): truncated value with size 32 to match size of target (7) File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v Line: 143
-Info (12128): Elaborating entity "fifo_mux_16_1" for hierarchy "l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|fifo_mux_16_1:fifo_mux_16_1a" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v Line: 104
-Info (12128): Elaborating entity "fifo_mux_8_1" for hierarchy "l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|fifo_mux_16_1:fifo_mux_16_1a|fifo_mux_8_1:mux_8_1a" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_16_1.v Line: 30
-Info (12128): Elaborating entity "fifo_mux_2_1" for hierarchy "l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|fifo_mux_16_1:fifo_mux_16_1a|fifo_mux_8_1:mux_8_1a|fifo_mux_2_1:fifo_mux_2_1a" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_8_1.v Line: 22
-Info (12128): Elaborating entity "mac_array" for hierarchy "mac_array:mac_array_inst" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 82
-Info (12128): Elaborating entity "mac_row" for hierarchy "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_array.v Line: 42
-Info (12128): Elaborating entity "mac_tile" for hierarchy "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_row.v Line: 37
-Info (12128): Elaborating entity "mac" for hierarchy "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_tile.v Line: 54
-Info (12128): Elaborating entity "mac_row" for hierarchy "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_array.v Line: 42
-Info (12128): Elaborating entity "mac_tile" for hierarchy "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_row.v Line: 37
-Info (12128): Elaborating entity "ofifo" for hierarchy "ofifo:ofifo_inst" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 95
-Info (12128): Elaborating entity "sfu" for hierarchy "sfu:sfu_inst" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 104
+Info (12128): Elaborating entity "l0" for hierarchy "l0:l0_inst" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 51
+Info (12128): Elaborating entity "fifo_depth64" for hierarchy "l0:l0_inst|fifo_depth64:row_num[0].fifo_instance" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/l0.v Line: 40
+Warning (10230): Verilog HDL assignment warning at fifo_depth64.v(132): truncated value with size 32 to match size of target (7) File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v Line: 132
+Warning (10230): Verilog HDL assignment warning at fifo_depth64.v(143): truncated value with size 32 to match size of target (7) File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v Line: 143
+Info (12128): Elaborating entity "fifo_mux_16_1" for hierarchy "l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|fifo_mux_16_1:fifo_mux_16_1a" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_depth64.v Line: 104
+Info (12128): Elaborating entity "fifo_mux_8_1" for hierarchy "l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|fifo_mux_16_1:fifo_mux_16_1a|fifo_mux_8_1:mux_8_1a" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_16_1.v Line: 30
+Info (12128): Elaborating entity "fifo_mux_2_1" for hierarchy "l0:l0_inst|fifo_depth64:row_num[0].fifo_instance|fifo_mux_16_1:fifo_mux_16_1a|fifo_mux_8_1:mux_8_1a|fifo_mux_2_1:fifo_mux_2_1a" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/fifo_mux_8_1.v Line: 22
+Info (12128): Elaborating entity "mac_array" for hierarchy "mac_array:mac_array_inst" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 82
+Info (12128): Elaborating entity "mac_row" for hierarchy "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_array.v Line: 42
+Info (12128): Elaborating entity "mac_tile" for hierarchy "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_row.v Line: 37
+Info (12128): Elaborating entity "mac" for hierarchy "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_tile.v Line: 54
+Info (12128): Elaborating entity "mac_row" for hierarchy "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_array.v Line: 42
+Info (12128): Elaborating entity "mac_tile" for hierarchy "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac_row.v Line: 37
+Info (12128): Elaborating entity "ofifo" for hierarchy "ofifo:ofifo_inst" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 95
+Info (12128): Elaborating entity "sfu" for hierarchy "sfu:sfu_inst" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 104
 Info (278001): Inferred 32 megafunctions from design logic
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|mac:mac_instance|Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-Info (12130): Elaborated megafunction instantiation "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|lpm_mult:Mult0" File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
-Info (12133): Instantiated megafunction "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|lpm_mult:Mult0" with the following parameter: File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[3].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[2].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[2].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[3].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[4].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[5].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[6].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[7].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "mac_array:mac_array_inst|mac_row:row_num[1].mac_row_instance|mac_tile:col_num[8].mac_tile_instance|mac:mac_instance|Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+Info (12130): Elaborated megafunction instantiation "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|lpm_mult:Mult0" File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
+Info (12133): Instantiated megafunction "mac_array:mac_array_inst|mac_row:row_num[4].mac_row_instance|mac_tile:col_num[1].mac_tile_instance|mac:mac_instance|lpm_mult:Mult0" with the following parameter: File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/mac.v Line: 19
     Info (12134): Parameter "LPM_WIDTHA" = "5"
     Info (12134): Parameter "LPM_WIDTHB" = "4"
     Info (12134): Parameter "LPM_WIDTHP" = "9"
@@ -11779,19 +11775,19 @@ Info (12133): Instantiated megafunction "mac_array:mac_array_inst|mac_row:row_nu
     Info (12134): Parameter "INPUT_B_IS_CONSTANT" = "NO"
     Info (12134): Parameter "MAXIMIZE_SPEED" = "5"
 Info (12021): Found 1 design units, including 1 entities, in source file db/mult_c5t.tdf
-    Info (12023): Found entity 1: mult_c5t File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/db/mult_c5t.tdf Line: 29
+    Info (12023): Found entity 1: mult_c5t File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/quartus_reports/db/mult_c5t.tdf Line: 29
 Info (13014): Ignored 1184 buffer(s)
     Info (13016): Ignored 64 CARRY_SUM buffer(s)
     Info (13019): Ignored 1120 SOFT buffer(s)
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "sfp_out[15]" is stuck at GND File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
-    Warning (13410): Pin "sfp_out[31]" is stuck at GND File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
-    Warning (13410): Pin "sfp_out[47]" is stuck at GND File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
-    Warning (13410): Pin "sfp_out[63]" is stuck at GND File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
-    Warning (13410): Pin "sfp_out[79]" is stuck at GND File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
-    Warning (13410): Pin "sfp_out[95]" is stuck at GND File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
-    Warning (13410): Pin "sfp_out[111]" is stuck at GND File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
-    Warning (13410): Pin "sfp_out[127]" is stuck at GND File: D:/GitHub/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
+    Warning (13410): Pin "sfp_out[15]" is stuck at GND File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
+    Warning (13410): Pin "sfp_out[31]" is stuck at GND File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
+    Warning (13410): Pin "sfp_out[47]" is stuck at GND File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
+    Warning (13410): Pin "sfp_out[63]" is stuck at GND File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
+    Warning (13410): Pin "sfp_out[79]" is stuck at GND File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
+    Warning (13410): Pin "sfp_out[95]" is stuck at GND File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
+    Warning (13410): Pin "sfp_out[111]" is stuck at GND File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
+    Warning (13410): Pin "sfp_out[127]" is stuck at GND File: /home/linux/ieng6/students/690/carch/systolic-cnn-accelerator/hardware/alpha_nm/verilog/corelet.sv Line: 27
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
@@ -11800,9 +11796,9 @@ Info (21057): Implemented 21441 device resources after synthesis - the final res
     Info (21059): Implemented 257 output pins
     Info (21061): Implemented 21016 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 12 warnings
-    Info: Peak virtual memory: 5106 megabytes
-    Info: Processing ended: Fri Nov 27 15:15:13 2026
-    Info: Elapsed time: 00:00:17
-    Info: Total CPU time (on all processors): 00:00:23
+    Info: Peak virtual memory: 1271 megabytes
+    Info: Processing ended: Fri Nov 27 21:43:38 2026
+    Info: Elapsed time: 00:00:57
+    Info: Total CPU time (on all processors): 00:01:12
 
 
